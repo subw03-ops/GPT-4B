@@ -1,0 +1,377 @@
+.event-detail-page {
+  width: 100%;
+  max-width: 393px;
+  min-height: 100vh;
+  background-color: white;
+  border-radius: 40px;
+  overflow-y: auto;
+  padding-bottom: 40px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.loading,
+.error {
+  padding: 40px 20px;
+  text-align: center;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  color: #6a7282;
+}
+
+.error {
+  color: #ef4444;
+}
+
+/* 헤더 */
+.event-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 66px 18px 0;
+  height: 98px;
+  position: relative;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0a0a0a;
+  line-height: 20px;
+  letter-spacing: -0.1504px;
+  position: absolute;
+  left: 18px;
+}
+
+.back-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.page-title {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0a0a0a;
+  line-height: 24px;
+  letter-spacing: -0.3125px;
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.edit-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #584cdc;
+  line-height: 20px;
+  letter-spacing: -0.1504px;
+  position: absolute;
+  right: 18px;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 12px;
+  position: absolute;
+  right: 18px;
+}
+
+.cancel-button,
+.save-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.1504px;
+}
+
+.cancel-button {
+  color: #6a7282;
+}
+
+.save-button {
+  color: #584cdc;
+}
+
+/* 섹션 공통 스타일 */
+.meeting-info-section,
+.memo-section,
+.notification-section {
+  margin: 0 18px;
+  margin-top: 20px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 6.949px;
+  margin-bottom: 6.949px;
+}
+
+.section-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.section-title {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 13.899px;
+  font-weight: 600;
+  color: #364153;
+  line-height: 20.848px;
+  letter-spacing: -0.2715px;
+  margin: 0;
+}
+
+/* 미팅 정보 섹션 */
+.meeting-info-content {
+  background: #eeeeee;
+  border-radius: 8.687px;
+  padding: 10.424px 18px;
+  min-height: 182px;
+}
+
+.event-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6.949px;
+}
+
+.event-title {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 13.899px;
+  font-weight: 400;
+  color: #0a0a0a;
+  line-height: 20.848px;
+  letter-spacing: -0.2715px;
+  margin: 0;
+  flex: 1;
+}
+
+.participant-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 13.899px;
+  color: #0a0a0a;
+}
+
+.participant-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.date-info,
+.time-info {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 12.161px;
+  font-weight: 400;
+  color: #4a5565;
+  line-height: 17.373px;
+  letter-spacing: -0.1306px;
+  margin: 0;
+  margin-top: 4px;
+}
+
+/* 편집 폼 */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  color: #0a0a0a;
+  background: white;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #584cdc;
+}
+
+.title-input {
+  font-weight: 500;
+  font-size: 13.899px;
+}
+
+.participant-input {
+  font-size: 12.161px;
+}
+
+.date-time-info {
+  margin-top: 8px;
+}
+
+.date-time-info p {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 12.161px;
+  color: #4a5565;
+  margin: 4px 0;
+}
+
+/* 시간 타임라인 */
+.time-timeline {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 3.475px;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 10.424px;
+  align-items: center;
+}
+
+.timeline-time {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 12.161px;
+  font-weight: 400;
+  color: #6a7282;
+  line-height: 17.373px;
+  letter-spacing: -0.1306px;
+  min-width: 55.595px;
+}
+
+.timeline-bar {
+  flex: 1;
+  height: 27.797px;
+  border-radius: 3.475px;
+  display: flex;
+  align-items: center;
+  padding: 7.384px 10.424px;
+  min-width: 0;
+}
+
+.timeline-label {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 12.161px;
+  font-weight: 400;
+  color: white;
+  line-height: 17.373px;
+  letter-spacing: -0.1306px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timeline-end {
+  flex: 1;
+  height: 0;
+}
+
+/* 메모 섹션 */
+.memo-content {
+  background: #eeeeee;
+  border-radius: 8.687px;
+  padding: 10.424px;
+  min-height: 86.867px;
+}
+
+.memo-content p {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 12.161px;
+  font-weight: 400;
+  color: #364153;
+  line-height: 17.373px;
+  letter-spacing: -0.1306px;
+  margin: 0;
+}
+
+.memo-textarea {
+  width: 100%;
+  min-height: 86.867px;
+  padding: 10.424px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8.687px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 12.161px;
+  color: #364153;
+  background: white;
+  resize: vertical;
+}
+
+.memo-textarea:focus {
+  outline: none;
+  border-color: #584cdc;
+}
+
+/* 알림 섹션 */
+.notification-section {
+  margin-top: 20px;
+}
+
+.notification-content {
+  background: #eeeeee;
+  border-radius: 8.687px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6.949px;
+}
+
+.notification-content p {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 12.161px;
+  font-weight: 500;
+  color: #acb3bb;
+  line-height: 17.373px;
+  letter-spacing: -0.1306px;
+  margin: 0;
+  text-align: center;
+}
+
+/* 삭제 버튼 */
+.delete-button {
+  display: block;
+  width: 100%;
+  margin: 40px auto 0;
+  padding: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fb2c36;
+  letter-spacing: -0.1306px;
+  text-align: center;
+  max-width: 393px;
+}
+
+.delete-button:hover {
+  opacity: 0.8;
+}
+

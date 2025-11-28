@@ -1,32 +1,332 @@
 .calendar-page {
   width: 100%;
+  max-width: 393px;
   min-height: 100vh;
   background-color: white;
   border-radius: 40px;
   overflow-y: auto;
   padding-bottom: 100px;
-}
-
-.calendar-container {
-  padding: 24px;
-  max-width: 405px;
+  position: relative;
   margin: 0 auto;
 }
 
-.calendar-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #0a0a0a;
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  margin: 0 0 24px 0;
+/* 일정 추가 버튼 */
+.calendar-header {
+  position: absolute;
+  top: 37px;
+  right: 42px;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 10;
 }
 
-.calendar-placeholder {
+.add-schedule-btn {
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 400px;
-  color: #6a7282;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.add-schedule-icon {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.icon-vector {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.icon-vector:first-child {
+  bottom: 50%;
+  left: 20.83%;
+  right: 20.83%;
+  top: 50%;
+}
+
+.icon-vector:last-child {
+  bottom: 20.83%;
+  left: 50%;
+  right: 50%;
+  top: 20.83%;
+}
+
+.icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.add-schedule-text {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #584cdc;
+  line-height: 24px;
+  letter-spacing: -0.3125px;
+}
+
+/* 캘린더 컴포넌트 */
+.calendar-component {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 2px 16px 19px 0px rgba(0, 0, 0, 0.09);
+  padding: 24px;
+  margin: -10px 42px 24px 42px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.calendar-header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-arrow {
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.arrow-icon {
+  width: 10px;
+  height: 6.183px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-icon.arrow-right {
+  transform: rotate(270deg);
+}
+
+.arrow-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.calendar-month {
+  font-family: 'Avenir Next LT Pro', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  color: #4a5660;
+  text-align: center;
+  margin: 0;
+}
+
+/* 요일 헤더 */
+.calendar-days-header {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.day-header {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  font-family: 'Avenir Next LT Pro', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 12px;
+  color: #b5bec6;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* 날짜 그리드 */
+.calendar-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.calendar-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 29px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 0 auto;
+}
+
+.calendar-day.inactive {
+  opacity: 0.4;
+}
+
+.calendar-day.active {
+  background-color: #584cdc;
+}
+
+.calendar-day.active .day-number {
+  color: white;
+}
+
+.day-number {
+  font-family: 'Avenir Next LT Pro', 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 18px;
+  color: #4a5660;
+  text-align: center;
+  width: 20px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-day.active .day-number {
+  color: white;
+}
+
+/* 이벤트 섹션 */
+.events-section {
+  padding: 0 22px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10.56px;
+}
+
+.events-header {
+  display: flex;
+  align-items: center;
+  gap: 7.04px;
+  height: 23px;
+}
+
+.events-title {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 15.84px;
+  font-weight: 500;
+  line-height: 23.76px;
+  color: #364153;
+  letter-spacing: -0.3867px;
+  margin: 0;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.event-item {
+  background: white;
+  border: 0.587px solid #e5e7eb;
+  border-radius: 12.32px;
+  padding: 14.667px;
+  margin-bottom: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.event-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.event-item:active {
+  transform: translateY(0);
+}
+
+.event-content {
+  display: flex;
+  gap: 14.08px;
+  align-items: center;
+  width: 100%;
+}
+
+.event-time {
+  font-family: 'Inter', sans-serif;
+  font-size: 14.08px;
+  font-weight: 400;
+  line-height: 21.12px;
+  color: #4a5565;
+  letter-spacing: -0.275px;
+  min-width: 35.943px;
+  height: 21.12px;
+}
+
+.event-color-bar {
+  width: 3.52px;
+  height: 35.2px;
+  border-radius: 19685250px;
+  flex-shrink: 0;
+}
+
+.event-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+.event-title {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14.08px;
+  font-weight: 400;
+  line-height: 21.12px;
+  color: #1e2939;
+  letter-spacing: -0.275px;
+  margin-bottom: 6px;
+}
+
+.event-badge {
+  display: inline-block;
+  padding: 2.35px 7.04px;
+  border-radius: 7.04px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 10.56px;
+  font-weight: 500;
+  line-height: 14.08px;
+  color: white;
+  width: fit-content;
+}
+
+.no-events {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  color: #9ca3af;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.no-events.error {
+  color: #ef4444;
 }
 
