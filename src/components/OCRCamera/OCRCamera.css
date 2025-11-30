@@ -1,21 +1,24 @@
 .ocr-camera-container {
   position: relative;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 24px;
+  justify-content: center;
+  flex: 1;
+  padding: 0;
+  overflow: hidden;
 }
 
 .ocr-camera-preview {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 357px;
-  height: 213px;
-  border-radius: 16px;
+  height: 100%;
   overflow: hidden;
   background: #000;
-  margin: 24px 0;
 }
 
 .ocr-camera-video {
@@ -30,48 +33,51 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 341px;
-  height: 213px;
+  width: calc(100% - 48px);
+  max-width: 345px;
+  aspect-ratio: 1.6;
   pointer-events: none;
+  z-index: 10;
 }
 
 .ocr-guide-corner {
   position: absolute;
-  width: 32px;
-  height: 32px;
-  border: 4px solid #51a2ff;
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ffffff;
+  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
 }
 
 .ocr-guide-corner.top-left {
-  top: -4px;
-  left: -4px;
+  top: -3px;
+  left: -3px;
   border-right: none;
   border-bottom: none;
-  border-top-left-radius: 16px;
+  border-top-left-radius: 12px;
 }
 
 .ocr-guide-corner.top-right {
-  top: -4px;
-  right: -4px;
+  top: -3px;
+  right: -3px;
   border-left: none;
   border-bottom: none;
-  border-top-right-radius: 16px;
+  border-top-right-radius: 12px;
 }
 
 .ocr-guide-corner.bottom-left {
-  bottom: -4px;
-  left: -4px;
+  bottom: -3px;
+  left: -3px;
   border-right: none;
   border-top: none;
-  border-bottom-left-radius: 16px;
+  border-bottom-left-radius: 12px;
 }
 
 .ocr-guide-corner.bottom-right {
-  bottom: -4px;
-  right: -4px;
+  bottom: -3px;
+  right: -3px;
   border-left: none;
   border-top: none;
-  border-bottom-right-radius: 16px;
+  border-bottom-right-radius: 12px;
 }
 
 .ocr-guide-center-dot {
@@ -79,11 +85,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  background: #51a2ff;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
   border-radius: 50%;
-  opacity: 0.5;
+  opacity: 0.6;
+  box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.8);
 }
 
 .ocr-camera-error {
@@ -111,62 +118,69 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
-  padding: 0 24px 40px;
-  z-index: 10;
+  gap: 16px;
+  padding: 0 24px 60px;
+  z-index: 20;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
 }
 
 .ocr-capture-button {
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  border: 4px solid rgba(255, 255, 255, 0.5);
-  background: white;
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.3), 0px 0px 0px 8px rgba(255, 255, 255, 0.1);
+  transition: all 0.2s;
   padding: 0;
 }
 
 .ocr-capture-button:hover:not(:disabled) {
-  transform: scale(1.05);
-  box-shadow: 0px 15px 20px -3px rgba(0, 0, 0, 0.15), 0px 6px 8px -4px rgba(0, 0, 0, 0.15);
+  transform: scale(1.08);
+  box-shadow: 0px 10px 28px rgba(0, 0, 0, 0.4), 0px 0px 0px 10px rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 1);
 }
 
 .ocr-capture-button:active:not(:disabled) {
-  transform: scale(0.95);
+  transform: scale(0.92);
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3), 0px 0px 0px 6px rgba(255, 255, 255, 0.1);
 }
 
 .ocr-capture-button:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .ocr-capture-button-inner {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ocr-capture-icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
 }
 
 .ocr-capture-hint {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   text-align: center;
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
 }
 
 
