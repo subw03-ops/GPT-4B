@@ -4,6 +4,11 @@ import './LLMPage.css'
 
 const imgGpt4B1 = "https://www.figma.com/api/mcp/asset/c2072de6-f1a8-4f36-a042-2df786f153b1"
 
+// LLM 아이콘 이미지 경로
+const claudeIcon = "/assets/claude-icon.svg"
+const gptIcon = "/assets/gpt-icon.svg"
+const geminiIcon = "/assets/gemini-icon.svg"
+
 function LLMPage() {
   const navigate = useNavigate()
   const [message, setMessage] = useState('')
@@ -13,8 +18,11 @@ function LLMPage() {
   const plusButtonRef = useRef(null)
 
   useEffect(() => {
-    // 채팅방 입장할 때마다 안내 표시
-    setShowTutorial(true)
+    // AI 추천 탭 최초 입장 시에만 안내 표시
+    const hasSeenTutorial = localStorage.getItem('llm-tutorial-shown')
+    if (!hasSeenTutorial) {
+      setShowTutorial(true)
+    }
   }, [])
 
   const handleBack = () => {
@@ -33,6 +41,7 @@ function LLMPage() {
     e.stopPropagation()
     if (showTutorial) {
       setShowTutorial(false)
+      localStorage.setItem('llm-tutorial-shown', 'true')
     }
     setShowLLMModal(true)
   }
@@ -117,12 +126,18 @@ function LLMPage() {
 
       {/* Tutorial Overlay */}
       {showTutorial && (
-        <div className="tutorial-overlay" onClick={() => setShowTutorial(false)}>
+        <div className="tutorial-overlay" onClick={() => {
+          setShowTutorial(false)
+          localStorage.setItem('llm-tutorial-shown', 'true')
+        }}>
           <div className="tutorial-content">
             <div className="tutorial-bubble" onClick={(e) => e.stopPropagation()}>
               <button 
                 className="tutorial-close-button"
-                onClick={() => setShowTutorial(false)}
+                onClick={() => {
+                  setShowTutorial(false)
+                  localStorage.setItem('llm-tutorial-shown', 'true')
+                }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -152,21 +167,54 @@ function LLMPage() {
                 className={`llm-option ${selectedLLM === 'claude' ? 'selected' : ''}`}
                 onClick={() => handleLLMSelect('claude')}
               >
-                <span className="llm-option-emoji">🧠</span>
+                <div className="llm-option-icon-wrapper">
+                  <img 
+                    src={claudeIcon} 
+                    alt="Claude" 
+                    className="llm-option-icon"
+                    onError={(e) => {
+                      e.target.style.display = 'none'
+                      e.target.nextSibling.style.display = 'inline'
+                    }}
+                  />
+                  <span className="llm-option-emoji" style={{ display: 'none' }}>🧠</span>
+                </div>
                 <span className="llm-option-name">Claude</span>
               </button>
               <button 
                 className={`llm-option ${selectedLLM === 'gpt' ? 'selected' : ''}`}
                 onClick={() => handleLLMSelect('gpt')}
               >
-                <span className="llm-option-emoji">🤖</span>
+                <div className="llm-option-icon-wrapper">
+                  <img 
+                    src={gptIcon} 
+                    alt="GPT" 
+                    className="llm-option-icon"
+                    onError={(e) => {
+                      e.target.style.display = 'none'
+                      e.target.nextSibling.style.display = 'inline'
+                    }}
+                  />
+                  <span className="llm-option-emoji" style={{ display: 'none' }}>🤖</span>
+                </div>
                 <span className="llm-option-name">GPT</span>
               </button>
               <button 
                 className={`llm-option ${selectedLLM === 'gemini' ? 'selected' : ''}`}
                 onClick={() => handleLLMSelect('gemini')}
               >
-                <span className="llm-option-emoji">✨</span>
+                <div className="llm-option-icon-wrapper">
+                  <img 
+                    src={geminiIcon} 
+                    alt="Gemini" 
+                    className="llm-option-icon"
+                    onError={(e) => {
+                      e.target.style.display = 'none'
+                      e.target.nextSibling.style.display = 'inline'
+                    }}
+                  />
+                  <span className="llm-option-emoji" style={{ display: 'none' }}>✨</span>
+                </div>
                 <span className="llm-option-name">Gemini</span>
               </button>
             </div>

@@ -20,6 +20,7 @@
   justify-content: space-between;
   padding: 16px 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
 }
 
 .back-button {
@@ -30,6 +31,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 24px;
 }
 
 .back-button:hover {
@@ -45,9 +47,10 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  line-height: 1;
+  line-height: 24px;
   display: flex;
   align-items: center;
+  height: 24px;
 }
 
 .search-bar {
@@ -68,6 +71,7 @@
   font-family: 'Mulish', 'Noto Sans KR', sans-serif;
   color: #252525;
   padding: 0;
+  text-align: left;
 }
 
 .search-input::placeholder {

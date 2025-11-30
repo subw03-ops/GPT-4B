@@ -5,6 +5,7 @@ import './MyPage.css'
 // 이미지 URL
 const imgGpt4B2 = "https://www.figma.com/api/mcp/asset/cd29f31a-6dd1-4564-9d37-1a87e76147bd"
 const imgVector = "https://www.figma.com/api/mcp/asset/711cfff5-444e-4151-9308-a5686c4411d8"
+const imgVector4 = "https://www.figma.com/api/mcp/asset/9f59a389-f83e-4f13-b23f-43517aa98dce"
 
 function MyPage() {
   const navigate = useNavigate()
@@ -192,12 +193,25 @@ function MyPage() {
     }
   }, [isDragging, dragStart, dragCurrent, isAnimating, minSwipeDistance])
 
+  const handleBack = () => {
+    navigate(-1)
+  }
+
   return (
     <div 
       className="my-page"
       ref={containerRef}
     >
       <div className="my-page-background">
+        {/* 뒤로 가기 버튼 */}
+        <div className="my-page-header">
+          <button className="back-button" onClick={handleBack}>
+            <div className="back-icon">
+              <img src={imgVector4} alt="뒤로" style={{ filter: 'brightness(0) invert(1)' }} />
+            </div>
+          </button>
+        </div>
+
         {/* 개인 명함 카드 */}
         <div className="business-card-container">
           <div 

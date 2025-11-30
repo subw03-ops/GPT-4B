@@ -45,8 +45,9 @@
 }
 
 .add-info-header {
-  margin-bottom: 32px;
-  padding-top: 16px;
+  margin-bottom: 16px;
+  padding-top: 40px;
+  text-align: center;
 }
 
 .add-info-step {

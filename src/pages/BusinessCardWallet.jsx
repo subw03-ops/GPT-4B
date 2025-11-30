@@ -121,22 +121,6 @@ function BusinessCardWallet() {
               <p>명함을 찾아서</p>
               <p>내용을 수정할 수 있어요.</p>
             </div>
-            <div className="header-actions">
-              <button 
-                className="header-action-btn"
-                onClick={() => navigate('/add')}
-              >
-                <span className="action-icon">📝</span>
-                <span className="action-label">수동 명함 등록</span>
-              </button>
-              <button 
-                className="header-action-btn"
-                onClick={() => navigate('/ocr')}
-              >
-                <span className="action-icon">📷</span>
-                <span className="action-label">OCR로 명함 추가</span>
-              </button>
-            </div>
           </div>
         </div>
 
@@ -157,6 +141,36 @@ function BusinessCardWallet() {
           </div>
         </div>
 
+        {/* Action Buttons and View Toggle */}
+        <div className="action-buttons-section">
+          <div className="header-actions">
+            <button 
+              className="header-action-btn"
+              onClick={() => navigate('/add')}
+            >
+              <span className="action-icon">📝</span>
+              <span className="action-label">수동 명함 등록</span>
+            </button>
+            <button 
+              className="header-action-btn"
+              onClick={() => navigate('/ocr')}
+            >
+              <span className="action-icon">📷</span>
+              <span className="action-label">OCR로 명함 추가</span>
+            </button>
+          </div>
+          {filteredCards.length > 0 && (
+            <div className="view-all-section">
+              <button 
+                className="view-all-btn"
+                onClick={() => setIsGridView(!isGridView)}
+              >
+                {isGridView ? '슬라이드로 보기' : '전체 펼쳐보기'}
+              </button>
+            </div>
+          )}
+        </div>
+
         {/* Business Card Display */}
         {filteredCards.length > 0 ? (
           <div className="card-carousel-section">
@@ -169,7 +183,7 @@ function BusinessCardWallet() {
                     aria-label="Previous card"
                   >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M15 18L9 12L15 6" stroke="#584cdc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </button>
 
@@ -203,15 +217,17 @@ function BusinessCardWallet() {
                               }}
                             >
                               <div className="card-display-content">
-                                {card.company && <p className="card-company">{card.company}</p>}
+                                <div className="card-top-section">
+                                  {card.company && <p className="card-company">{card.company}</p>}
+                                  <div className="card-contact">
+                                    {card.phone && <p className="card-phone">{card.phone}</p>}
+                                    {card.email && <p className="card-email">{card.email}</p>}
+                                  </div>
+                                </div>
                                 <div className="card-info-section">
                                   <div>
                                     <h3 className="card-name">{card.name}</h3>
                                     {card.position && <p className="card-position">{card.position}</p>}
-                                  </div>
-                                  <div className="card-contact">
-                                    {card.phone && <p className="card-phone">{card.phone}</p>}
-                                    {card.email && <p className="card-email">{card.email}</p>}
                                   </div>
                                 </div>
                               </div>
@@ -228,7 +244,7 @@ function BusinessCardWallet() {
                     aria-label="Next card"
                   >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 18L15 12L9 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M9 18L15 12L9 6" stroke="#584cdc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </button>
                 </div>
@@ -278,16 +294,6 @@ function BusinessCardWallet() {
                 ))}
               </div>
             )}
-
-            {/* View Toggle Button */}
-            <div className="view-all-section">
-              <button 
-                className="view-all-btn"
-                onClick={() => setIsGridView(!isGridView)}
-              >
-                {isGridView ? '슬라이드로 보기' : '전체 펼쳐보기'}
-              </button>
-            </div>
           </div>
         ) : (
           <div className="empty-state">
@@ -300,8 +306,17 @@ function BusinessCardWallet() {
           <div className="usage-indicator">
             <span className="usage-count">{cards.length}/200</span>
           </div>
-          <p className="footer-text">더 많은 명함을 저장해 관리하세요</p>
-          <a href="#" className="upgrade-link">gpt-4b+ 살펴보기</a>
+          <p className="footer-text">더 많은 명함을 관리할 수 있어요</p>
+          <a 
+            href="#" 
+            className="upgrade-link"
+            onClick={(e) => {
+              e.preventDefault()
+              navigate('/upgrade')
+            }}
+          >
+            gpt-4b+ 살펴보기
+          </a>
         </div>
       </div>
 

@@ -25,6 +25,7 @@ import AddInfo from './pages/AddInfo'
 import CardDetail from './pages/CardDetail'
 import Cardbook from './pages/Cardbook'
 import CardCustomize from './pages/CardCustomize'
+import UpgradePage from './pages/UpgradePage'
 import './App.css'
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
         <Route path="/popular-gifts" element={<PopularGiftsPage />} />
         <Route path="/popular-gifts/:giftId" element={<GiftDetailPage />} />
         <Route path="/popular-gifts/filter" element={<FilterPage />} />
+        <Route path="/upgrade" element={<UpgradePage />} />
       </Routes>
     </div>
   )

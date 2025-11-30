@@ -146,16 +146,16 @@
   border-radius: 16px;
   padding: 8px 16px;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   color: white;
   line-height: 20px;
   letter-spacing: -0.1504px;
   cursor: pointer;
   position: absolute;
-  top: 80px;
+  top: 100px;
   right: 24px;
-  width: 108px;
+  width: 130px;
   height: auto;
   min-height: 36px;
   display: flex;
@@ -233,15 +233,15 @@
 .stat-card {
   background: white;
   border-radius: 14px;
-  padding: 20px;
-  height: 98px;
+  padding: 16px;
+  height: 80px;
   display: flex;
   align-items: center;
 }
 
 .stat-content {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   width: 100%;
 }
@@ -290,6 +290,8 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+  align-self: flex-end;
+  margin-bottom: 2px;
 }
 
 /* 명함 정보 섹션 */

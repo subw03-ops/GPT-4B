@@ -51,11 +51,6 @@ function MyDetailPage() {
       <div className="my-detail-background">
         {/* 헤더 */}
         <div className="detail-header">
-          <button className="back-button" onClick={handleBack}>
-            <div className="back-icon">
-              <img src={imgVector4} alt="뒤로" style={{ filter: 'brightness(0) invert(1)' }} />
-            </div>
-          </button>
         </div>
 
         {/* 명함 커스텀 버튼 */}

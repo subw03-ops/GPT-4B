@@ -260,16 +260,16 @@ function PopularGiftsPage() {
                     <div 
                       className="category-badge" 
                       style={{ 
-                        backgroundColor: gift.categoryColor === '#584cdc' ? '#f2f1ff' : '#faf5ff',
-                        borderColor: gift.categoryColor,
-                        color: gift.categoryColor
+                        backgroundColor: '#f2f1ff',
+                        borderColor: '#584cdc',
+                        color: '#584cdc'
                       }}
                     >
                       {gift.category}
                     </div>
                     <h3 className="gift-name">{gift.name}</h3>
                   </div>
-                  <div className="gift-price" style={{ color: gift.categoryColor }}>
+                  <div className="gift-price" style={{ color: '#584cdc' }}>
                     {gift.price}
                   </div>
                   <div className="gift-popularity">{gift.popularity}</div>

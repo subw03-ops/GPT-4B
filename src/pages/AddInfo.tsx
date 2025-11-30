@@ -38,10 +38,9 @@ const AddInfo = () => {
           </svg>
         </button>
         <div className="add-info-header">
-          <p className="add-info-step">Step 3.</p>
-          <h1 className="add-info-title">필요한 정보를 입력하세요</h1>
+          <h1 className="add-info-title">명함 정보 수정</h1>
           <p className="add-info-subtitle">
-            Figma 폼을 기준으로 필수/선택 항목이 나뉘어 있습니다.
+            잘못된 정보가 있다면 올바르게 수정할 수 있어요.
           </p>
         </div>
         <CardForm initialValues={draft} onSubmit={handleSubmit} />

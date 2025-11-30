@@ -29,7 +29,7 @@
 .ai-banner {
   background-color: #eeedfb;
   border-radius: 14px;
-  padding: 20px;
+  padding: 16px 20px;
   margin-bottom: 24px;
 }
 
@@ -42,11 +42,11 @@
 .banner-text {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .banner-subtitle {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
   color: #1c398e;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
@@ -54,12 +54,12 @@
 }
 
 .banner-title {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   color: #584cdc;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   margin: 0;
-  line-height: 20px;
+  line-height: 21px;
 }
 
 .banner-button {
@@ -97,7 +97,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .section-title-wrapper {
@@ -123,7 +123,7 @@
   background: none;
   border: none;
   color: #584cdc;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 600;
   font-family: 'SF Pro', sans-serif;
   cursor: pointer;
@@ -135,7 +135,7 @@
   gap: 10px;
   overflow-x: auto;
   padding: 10px 0;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -228,7 +228,7 @@
   background: none;
   border: none;
   color: #6a7282;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 500;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   text-decoration: underline;
