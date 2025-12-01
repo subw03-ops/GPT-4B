@@ -19,6 +19,7 @@ type CardState = {
   setPendingCard: (card: BusinessCard | null) => void;
   getCardById: (id: string) => BusinessCard | undefined;
   updateCard: (id: string, updates: Partial<BusinessCard>) => void;
+  deleteCard: (id: string) => void;
 };
 
 const demoCards: BusinessCard[] = [
@@ -54,6 +55,10 @@ export const useCardStore = create<CardState>((set, get) => ({
       cards: state.cards.map((card) =>
         card.id === id ? { ...card, ...updates } : card
       ),
+    })),
+  deleteCard: (id) =>
+    set((state) => ({
+      cards: state.cards.filter((card) => card.id !== id),
     })),
 }));
 

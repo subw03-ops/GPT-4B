@@ -338,6 +338,7 @@ function CardDetailModal({ card, onClose }) {
   const [memo, setMemo] = useState(card.memo || '')
   const navigate = useNavigate()
   const updateCard = useCardStore((state) => state.updateCard)
+  const deleteCard = useCardStore((state) => state.deleteCard)
 
   const handleSaveMemo = () => {
     updateCard(card.id, { memo })
@@ -345,6 +346,13 @@ function CardDetailModal({ card, onClose }) {
 
   const handleCustomize = () => {
     navigate('/customize', { state: { card } })
+  }
+
+  const handleDelete = () => {
+    if (window.confirm(`${card.name}님의 명함을 삭제하시겠습니까?`)) {
+      deleteCard(card.id)
+      onClose()
+    }
   }
 
   const handleCall = () => {
@@ -380,9 +388,19 @@ function CardDetailModal({ card, onClose }) {
                 <path d="M18 16.08C17.24 16.08 16.56 16.38 16.04 16.85L8.91 12.7C8.96 12.47 9 12.24 9 12C9 11.76 8.96 11.53 8.91 11.3L15.96 7.19C16.5 7.69 17.21 8 18 8C19.66 8 21 6.66 21 5C21 3.34 19.66 2 18 2C16.34 2 15 3.34 15 5C15 5.24 15.04 5.47 15.09 5.7L8.04 9.81C7.5 9.31 6.79 9 6 9C4.34 9 3 10.34 3 12C3 13.66 4.34 15 6 15C6.79 15 7.5 14.69 8.04 14.19L15.16 18.34C15.11 18.55 15.08 18.77 15.08 19C15.08 20.61 16.39 21.92 18 21.92C19.61 21.92 20.92 20.61 20.92 19C20.92 17.39 19.61 16.08 18 16.08Z" fill="#1f2937"/>
               </svg>
             </button>
-            <button className="modal-customize-button" onClick={handleCustomize}>
-              명함 커스텀하기
-            </button>
+            <div className="modal-top-actions">
+              <button className="modal-delete-button" onClick={handleDelete}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 6H5H21" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M10 11V17" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M14 11V17" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              <button className="modal-customize-button" onClick={handleCustomize}>
+                명함 커스텀하기
+              </button>
+            </div>
           </div>
         </div>
 
