@@ -12,6 +12,16 @@ const cardDesigns = {
   'design-6': 'linear-gradient(147.99deg, rgba(99, 102, 241, 1) 0%, rgba(255, 255, 255, 1) 100%)',
 }
 
+// 명함 디자인별 배경색 맵
+const backgroundColors = {
+  'design-1': 'linear-gradient(180deg, rgba(109, 48, 223, 1) 0%, rgba(88, 76, 220, 1) 100%)',
+  'design-2': 'linear-gradient(180deg, rgba(59, 130, 246, 1) 0%, rgba(37, 99, 235, 1) 100%)',
+  'design-3': 'linear-gradient(180deg, rgba(16, 185, 129, 1) 0%, rgba(5, 150, 105, 1) 100%)',
+  'design-4': 'linear-gradient(180deg, rgba(236, 72, 153, 1) 0%, rgba(219, 39, 119, 1) 100%)',
+  'design-5': 'linear-gradient(180deg, rgba(249, 115, 22, 1) 0%, rgba(234, 88, 12, 1) 100%)',
+  'design-6': 'linear-gradient(180deg, rgba(99, 102, 241, 1) 0%, rgba(79, 70, 229, 1) 100%)',
+}
+
 // 이미지 URL
 const imgGpt4B2 = "https://www.figma.com/api/mcp/asset/cd29f31a-6dd1-4564-9d37-1a87e76147bd"
 const imgVector = "https://www.figma.com/api/mcp/asset/711cfff5-444e-4151-9308-a5686c4411d8"
@@ -238,7 +248,12 @@ function MyPage() {
       className="my-page"
       ref={containerRef}
     >
-      <div className="my-page-background">
+      <div 
+        className="my-page-background"
+        style={{
+          background: backgroundColors[myCardDesign] || backgroundColors['design-1']
+        }}
+      >
         {/* 뒤로 가기 버튼 */}
         <div className="my-page-header">
           <button className="back-button" onClick={handleBack}>
@@ -265,12 +280,19 @@ function MyPage() {
                 background: cardDesigns[myCardDesign] || cardDesigns['design-1']
               }}
             >
+              {/* 우측 상단 연락처 정보 */}
+              <div className="card-contact">
+                <p className="card-phone">010-1234-5678</p>
+                <p className="card-email">sangmu.park@example.com</p>
+              </div>
+              
               <div className="card-header">
                 <div className="card-logo">
                   <img src={imgGpt4B2} alt="GPT-4b Logo" />
                 </div>
                 <div className="card-info">
                   <h2 className="card-name">박상무</h2>
+                  <p className="card-company">한국프로축구연맹</p>
                   <p className="card-position">상무</p>
                   <p className="card-department">영업본부</p>
                 </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BottomNavigation from '../components/BottomNavigation'
+import { useCardStore } from '../store/cardStore'
 import './MyDetailPage.css'
 
 // 명함 디자인 맵 (MyDetailPage용 - 끝에 white)
@@ -41,6 +42,7 @@ const imgIcon5 = "https://www.figma.com/api/mcp/asset/a449d7fe-86bc-419e-a053-3b
 function MyDetailPage() {
   const navigate = useNavigate()
   const [myCardDesign, setMyCardDesign] = useState('design-1')
+  const cards = useCardStore((state) => state.cards)
 
   // localStorage에서 내 명함 디자인 불러오기
   useEffect(() => {
@@ -113,6 +115,12 @@ function MyDetailPage() {
         <div className="detail-header">
         </div>
 
+        {/* 상단 텍스트 */}
+        <div className="my-detail-title-section">
+          <h1 className="my-detail-title">내 정보</h1>
+          <p className="my-detail-subtitle">나의 세부 정보를 확인할 수 있어요.</p>
+        </div>
+
         {/* 명함 커스텀 버튼 */}
         <button className="customize-button" onClick={handleCustomize}>
           명함 커스텀하기
@@ -134,10 +142,15 @@ function MyDetailPage() {
             </div>
             <div className="profile-info">
               <h2 className="profile-name">박상무</h2>
+              <p className="profile-phone">010-1234-5678</p>
+              <p className="profile-email">park.sangmu@company.com</p>
             </div>
           </div>
-          <p className="profile-position">상무</p>
-          <p className="profile-department">영업본부</p>
+          <div className="profile-details">
+            <p className="profile-company">한국프로축구연맹</p>
+            <p className="profile-position">상무</p>
+            <p className="profile-department">영업본부</p>
+          </div>
         </div>
 
 
@@ -150,7 +163,7 @@ function MyDetailPage() {
                   <img src={imgIcon} alt="명함" className="stat-icon" />
                   <span className="stat-label">총 명함 갯수</span>
                 </div>
-                <p className="stat-value">90개</p>
+                <p className="stat-value">{cards.length}개</p>
               </div>
               <img src={imgIcon1} alt="화살표" className="stat-arrow" />
             </div>
@@ -176,8 +189,8 @@ function MyDetailPage() {
             <div className="info-row">
               <img src={imgIcon3} alt="소속" className="info-icon" />
               <div className="info-content">
-                <p className="info-label">소속 / 직급</p>
-                <p className="info-value">영업본부 / 상무</p>
+                <p className="info-label">사명 / 부서 / 직급</p>
+                <p className="info-value">한국프로축구연맹 / 영업본부 / 상무</p>
               </div>
             </div>
             <div className="info-row">

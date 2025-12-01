@@ -21,7 +21,7 @@ function LLMPage() {
     // AI 추천 탭 최초 입장 시에만 안내 표시
     const hasSeenTutorial = localStorage.getItem('llm-tutorial-shown')
     if (!hasSeenTutorial) {
-      setShowTutorial(true)
+    setShowTutorial(true)
     }
   }, [])
 

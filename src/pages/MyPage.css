@@ -13,9 +13,9 @@
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(109, 48, 223, 1) 0%, rgba(88, 76, 220, 1) 100%);
   position: relative;
   overflow: visible;
+  transition: background 0.3s ease;
 }
 
 /* 헤더 */
@@ -58,6 +58,38 @@
   object-fit: contain;
 }
 
+/* 상단 텍스트 섹션 */
+.my-page-title-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.my-page-title {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: white;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.2px;
+}
+
+.my-page-subtitle {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.15px;
+}
+
 /* 개인 명함 카드 컨테이너 */
 .business-card-container {
   display: flex;
@@ -94,6 +126,7 @@
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
+  position: relative;
 }
 
 .card-header {
@@ -130,7 +163,7 @@
 .card-name {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 36px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 50px;
   color: white;
   margin: 0;
@@ -139,11 +172,23 @@
   white-space: nowrap;
 }
 
+.card-company {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 18.75px;
+  font-weight: 400;
+  line-height: 26.25px;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.3px;
+  height: auto;
+  white-space: nowrap;
+}
+
 .card-position {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 25px;
+  font-size: 18.75px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
   color: white;
   margin: 0;
   letter-spacing: -0.3px;
@@ -153,6 +198,27 @@
 
 .card-department {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 12.75px;
+  font-weight: 400;
+  line-height: 18px;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+
+.card-contact {
+  position: absolute;
+  top: 42px;
+  right: 42px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.card-phone {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 17px;
   font-weight: 400;
   line-height: 24px;
@@ -160,6 +226,19 @@
   margin: 0;
   letter-spacing: -0.2px;
   white-space: nowrap;
+  text-align: right;
+}
+
+.card-email {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 24px;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  text-align: right;
 }
 
 /* 스와이프 업 안내 버튼 */
