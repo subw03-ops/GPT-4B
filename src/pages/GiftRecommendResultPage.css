@@ -179,6 +179,110 @@
   opacity: 0.7;
 }
 
+/* Rationale Section */
+.rationale-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  animation: slideDown 0.3s ease-out;
+  width: 100%;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rationale-header {
+  margin-bottom: 12px;
+}
+
+.rationale-header-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rationale-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.rationale-title {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.rationale-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rationale-card {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(124, 58, 237, 0.08) 100%);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rationale-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+.rationale-card-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+}
+
+.rationale-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rationale-card-title {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.rationale-card-description {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #4b5563;
+  margin: 0;
+  line-height: 1.5;
+}
+
 /* Gift Recommendations */
 .gift-recommendations {
   display: flex;
@@ -247,6 +351,7 @@
   justify-content: space-between;
   margin-top: 4px;
   width: 100%;
+  gap: 16px;
 }
 
 .gift-card-price {
