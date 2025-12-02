@@ -1,8 +1,9 @@
+/* CardGiftHistoryPage 전용 스타일 - PersonalGiftHistoryPage와 동일한 스타일 적용 */
 .card-gift-history-page {
   width: 100%;
   max-width: 393px;
   min-height: 100vh;
-  background: #f9fafb;
+  background: #ffffff;
   border-radius: 40px;
   overflow-y: auto;
   position: relative;
@@ -14,8 +15,8 @@
   width: 100%;
   min-height: calc(100vh - 100px);
   position: relative;
-  padding: 0 16px;
-  padding-top: 36px;
+  padding: 0 20px;
+  padding-top: 20px;
   box-sizing: border-box;
 }
 
@@ -24,7 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
+  padding: 12px 0;
   height: 56px;
   position: relative;
   z-index: 10;
@@ -41,9 +42,10 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  white-space: nowrap;
 }
 
-.back-button {
+.card-back-button {
   width: 40px;
   height: 40px;
   background: transparent;
@@ -57,23 +59,13 @@
   z-index: 11;
 }
 
-.back-icon {
+.card-back-button svg {
   width: 24px;
   height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.back-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(37%) sepia(90%) saturate(2000%) hue-rotate(240deg) brightness(0.9) contrast(1.1);
-}
-
-/* 탭 리스트 */
-.tab-list {
+/* 연도별 탭 */
+.card-tab-list {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,179 +74,181 @@
   height: 36px;
   padding: 3.5px;
   margin: 0;
-  margin-top: 34px;
+  margin-bottom: 24px;
   gap: 0;
 }
 
-.tab-button {
+.card-tab-button {
   flex: 1;
   height: 29px;
   background: transparent;
   border: none;
-  border-radius: 10px;
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: #6b7280;
+  border-radius: 14px;
   cursor: pointer;
+  padding: 5px 9px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #0a0a0a;
+  letter-spacing: -0.1504px;
   transition: all 0.2s;
 }
 
-.tab-button.active {
+.card-tab-button.active {
   background: white;
-  color: #1f2937;
-  font-weight: 600;
+  border: 1px solid transparent;
 }
 
-/* 선물 이력 리스트 */
-.gift-list {
-  margin-top: 24px;
+/* 선물 리스트 */
+.card-gift-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
+  padding: 0;
 }
 
-.gift-card {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.gift-card-content {
+.card-gift-card {
   display: flex;
-  gap: 16px;
-  padding: 16px;
+  flex-direction: row;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e5e7eb;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.gift-image-wrapper {
+.card-gift-card:last-child {
+  border-bottom: none;
+}
+
+.card-gift-image-wrapper {
   width: 80px;
   height: 80px;
-  flex-shrink: 0;
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
+  flex-shrink: 0;
+  background: #f3f4f6;
 }
 
-.gift-image {
+.card-gift-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.gift-info {
+.card-gift-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  min-width: 0;
 }
 
-.gift-header {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.gift-header-top {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.gift-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.gift-recipient-name {
+.card-gift-recipient {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 14px;
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.gift-recipient-position {
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: #6b7280;
-}
-
-.gift-name {
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 15px;
   font-weight: 500;
-  color: #1f2937;
+  line-height: 20px;
+  color: #0a0a0a;
   margin: 0;
 }
 
-.gift-badges {
+.card-gift-name {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #0a0a0a;
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.card-gift-tags {
   display: flex;
+  align-items: center;
   gap: 6px;
   flex-wrap: wrap;
 }
 
-.category-badge {
-  padding: 4px 8px;
+.card-category-tag {
   background: #f3f4f6;
   border-radius: 6px;
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  color: #6b7280;
-}
-
-.status-badge {
   padding: 4px 8px;
-  background: #dbeafe;
-  border-radius: 6px;
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  color: #1e40af;
-}
-
-.gift-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
-}
-
-.gift-date {
-  display: flex;
-  align-items: center;
-  gap: 4px;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 12px;
   font-weight: 400;
-  color: #6b7280;
+  line-height: 16px;
+  color: #6a7282;
 }
 
-.date-icon {
-  width: 14px;
-  height: 14px;
-}
-
-.gift-price {
+.card-status-tag {
+  background: rgba(88, 76, 220, 0.1);
+  border-radius: 6px;
+  padding: 4px 8px;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: #1f2937;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #584cdc;
 }
 
-.empty-gift-history {
-  padding: 60px 20px;
-  text-align: center;
+.card-gift-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
 }
 
-.empty-gift-history p {
+.card-gift-date {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #9ca3af;
-  margin: 0;
+  line-height: 20px;
+  color: #6a7282;
 }
 
+.card-gift-price {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #0a0a0a;
+}
 
+.card-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6a7282;
+}
+
+.card-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #ef4444;
+  text-align: center;
+}
+
+.card-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6a7282;
+  text-align: center;
+}

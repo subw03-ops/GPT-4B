@@ -46,32 +46,48 @@ function GiftHistoryPage() {
     navigate('/my/detail')
   }
 
-  // DB에서 선물 이력 가져오기
+  // DB에서 선물 이력 가져오기 (더미 데이터 없이 DB 데이터만 사용)
   useEffect(() => {
     const fetchGifts = async () => {
       if (!isAuthenticated()) {
+        setGifts([]) // 인증되지 않으면 빈 배열
         setLoading(false)
+        setError('로그인이 필요합니다.')
         return
       }
 
       setLoading(true)
       setError(null)
+      setGifts([]) // 로딩 시작 시 빈 배열로 초기화 (더미 데이터 방지)
 
       try {
+        console.log('[GiftHistoryPage] Fetching gifts from DB...')
         const response = await giftAPI.getAll()
-        console.log('Gift API Response:', response.data) // 디버깅용
-        if (response.data.success) {
-          const giftsData = response.data.data || []
-          console.log('Fetched gifts:', giftsData) // 디버깅용
-          console.log('Gifts count:', giftsData.length) // 디버깅용
+        console.log('[GiftHistoryPage] API Response:', response.data)
+        
+        if (response.data && response.data.success) {
+          const giftsData = Array.isArray(response.data.data) ? response.data.data : []
+          console.log('[GiftHistoryPage] Fetched gifts from DB:', giftsData)
+          console.log('[GiftHistoryPage] Gifts count:', giftsData.length)
+          
+          // DB에서 가져온 데이터만 설정 (더미 데이터 없음)
           setGifts(giftsData)
+          
+          if (giftsData.length === 0) {
+            console.log('[GiftHistoryPage] No gifts found in DB for current user')
+          }
         } else {
-          setError(response.data.message || '선물 이력을 불러오는데 실패했습니다.')
+          const errorMsg = response.data?.message || '선물 이력을 불러오는데 실패했습니다.'
+          console.error('[GiftHistoryPage] API returned error:', errorMsg)
+          setError(errorMsg)
+          setGifts([]) // 에러 시 빈 배열
         }
       } catch (err) {
-        console.error('Failed to fetch gifts:', err)
-        console.error('Error details:', err.response?.data) // 디버깅용
-        setError(err.response?.data?.message || '선물 이력을 불러오는 중 오류가 발생했습니다.')
+        console.error('[GiftHistoryPage] Failed to fetch gifts:', err)
+        console.error('[GiftHistoryPage] Error details:', err.response?.data)
+        const errorMsg = err.response?.data?.message || err.message || '선물 이력을 불러오는 중 오류가 발생했습니다.'
+        setError(errorMsg)
+        setGifts([]) // 에러 시 빈 배열
       } finally {
         setLoading(false)
       }
@@ -121,24 +137,6 @@ function GiftHistoryPage() {
   console.log('Gifts by year:', giftHistoryByYear.length) // 디버깅용
   console.log('Year counts:', yearCounts) // 디버깅용
 
-  // UI 형식으로 변환
-  const giftHistory = giftHistoryByYear.map((gift, index) => {
-    // year가 없으면 날짜에서 추출
-    const giftYear = gift.year || (gift.purchaseDate || gift.createdAt ? String(new Date(gift.purchaseDate || gift.createdAt).getFullYear()) : currentYear)
-    
-    return {
-      id: gift.id,
-      image: getGiftImage(index, gift.giftImage),
-      name: gift.cardName || '이름 없음',
-      position: gift.cardCompany || '',
-      giftName: gift.giftName || '선물',
-      status: '선물 완료',
-      date: formatDate(gift.purchaseDate || gift.createdAt),
-      price: formatPrice(gift.price),
-      year: giftYear
-    }
-  })
-
   const totalGifts = gifts.length
 
   return (
@@ -186,23 +184,23 @@ function GiftHistoryPage() {
             <div className="loading-message">로딩 중...</div>
           ) : error ? (
             <div className="error-message">{error}</div>
-          ) : giftHistory.length > 0 ? (
-            giftHistory.map((gift) => (
+          ) : giftHistoryByYear.length > 0 ? (
+            giftHistoryByYear.map((gift, index) => (
             <div key={gift.id} className="gift-card">
               <div className="gift-image-wrapper">
-                <img src={gift.image} alt={gift.giftName} className="gift-image" />
+                <img src={getGiftImage(index, gift.giftImage)} alt={gift.giftName || '선물'} className="gift-image" />
               </div>
               <div className="gift-info">
                 <div className="gift-header-info">
-                  <h3 className="gift-name">{gift.giftName}</h3>
-                  <button className="status-badge">{gift.status}</button>
+                  <h3 className="gift-name">{gift.giftName || '선물'}</h3>
+                  <button className="status-badge">선물 완료</button>
                 </div>
-                <p className="gift-price">{gift.price}</p>
+                <p className="gift-price">{formatPrice(gift.price)}</p>
                 <div className="gift-date">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="date-icon">
                     <path d="M12.6667 2.66667H12V2C12 1.63181 11.7015 1.33333 11.3333 1.33333C10.9651 1.33333 10.6667 1.63181 10.6667 2V2.66667H5.33333V2C5.33333 1.63181 5.03486 1.33333 4.66667 1.33333C4.29848 1.33333 4 1.63181 4 2V2.66667H3.33333C2.59695 2.66667 2 3.26362 2 4V12.6667C2 13.403 2.59695 14 3.33333 14H12.6667C13.403 14 14 13.403 14 12.6667V4C14 3.26362 13.403 2.66667 12.6667 2.66667ZM12.6667 12.6667H3.33333V6.66667H12.6667V12.6667Z" fill="#6a7282"/>
                   </svg>
-                  <span className="date-value">{gift.date}</span>
+                  <span className="date-value">{formatDate(gift.purchaseDate || gift.createdAt)}</span>
                 </div>
               </div>
             </div>
