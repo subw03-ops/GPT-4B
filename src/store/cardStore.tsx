@@ -49,12 +49,13 @@ const demoCards: BusinessCard[] = [
 ];
 
 export const useCardStore = create<CardState>((set, get) => ({
-  cards: demoCards,
+  cards: [], // 초기 상태를 빈 배열로 설정하여 더미 데이터가 보이지 않도록 함
   pendingCard: null,
-  isLoading: false,
+  isLoading: true, // 초기 로딩 상태를 true로 설정
   
   fetchCards: async (search = '') => {
     if (!isAuthenticated()) {
+      set({ cards: [], isLoading: false });
       return;
     }
     
@@ -77,7 +78,7 @@ export const useCardStore = create<CardState>((set, get) => ({
           createdAt: card.createdAt,
           updatedAt: card.updatedAt,
         }));
-        set({ cards });
+        set({ cards, isLoading: false });
       }
     } catch (error) {
       console.error('Failed to fetch cards:', error);

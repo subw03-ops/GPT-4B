@@ -87,6 +87,11 @@ function MyPage() {
             email: userData.email || localInfo.email || '',
             memo: localInfo.memo || '',
           });
+          
+          // DB에서 디자인 정보 가져오기
+          if (userData.cardDesign) {
+            setMyCardDesign(userData.cardDesign);
+          }
         }
       } catch (error) {
         console.error('Failed to fetch user info:', error);
@@ -94,6 +99,10 @@ function MyPage() {
         const savedInfo = localStorage.getItem('my-info');
         if (savedInfo) {
           setMyInfo(JSON.parse(savedInfo));
+        }
+        const savedDesign = localStorage.getItem('my-card-design');
+        if (savedDesign) {
+          setMyCardDesign(savedDesign);
         }
       } finally {
         setIsLoading(false);
@@ -106,29 +115,28 @@ function MyPage() {
   // 최소 스와이프 거리 (픽셀)
   const minSwipeDistance = 300
 
-  // localStorage에서 내 명함 디자인 불러오기
+  // 디자인 변경 감지 (DB 업데이트 후)
   useEffect(() => {
-    const savedDesign = localStorage.getItem('my-card-design')
-    if (savedDesign) {
-      setMyCardDesign(savedDesign)
-    }
-  }, [])
-
-  // localStorage 변경 감지
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const savedDesign = localStorage.getItem('my-card-design')
-      if (savedDesign) {
-        setMyCardDesign(savedDesign)
+    const handleDesignChange = async () => {
+      if (isAuthenticated()) {
+        try {
+          const response = await userAPI.getProfile();
+          if (response.data.success && response.data.data.cardDesign) {
+            setMyCardDesign(response.data.data.cardDesign);
+          }
+        } catch (error) {
+          console.error('Failed to fetch card design:', error);
+        }
       }
-    }
-    window.addEventListener('storage', handleStorageChange)
-    // 같은 탭에서의 변경도 감지하기 위해 커스텀 이벤트 사용
-    window.addEventListener('myCardDesignChanged', handleStorageChange)
+    };
+    
+    window.addEventListener('myCardDesignChanged', handleDesignChange);
+    window.addEventListener('myInfoUpdated', handleDesignChange);
+    
     return () => {
-      window.removeEventListener('storage', handleStorageChange)
-      window.removeEventListener('myCardDesignChanged', handleStorageChange)
-    }
+      window.removeEventListener('myCardDesignChanged', handleDesignChange);
+      window.removeEventListener('myInfoUpdated', handleDesignChange);
+    };
   }, [])
 
   // 내 정보 업데이트 감지
