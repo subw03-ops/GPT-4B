@@ -75,10 +75,10 @@ function LLMPage() {
           </button>
           <div style={{ flex: 1 }}></div>
           <button 
-            className="header-title-button"
+            className="chat-history-button"
             onClick={() => navigate('/chat-history')}
           >
-            <h2 className="header-title">대화내역</h2>
+            대화내역
           </button>
         </div>
 

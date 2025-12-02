@@ -37,24 +37,33 @@
   opacity: 0.7;
 }
 
-.header-title-button {
-  background: none;
+.chat-history-button {
+  background-color: transparent;
   border: none;
-  cursor: pointer; 
-  padding: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 4px 16px;
   margin-left: auto;
-}
-
-.header-title {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   color: #252525;
   font-family: 'Mulish', 'Noto Sans KR', sans-serif;
-  margin: 0;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.header-title-button:hover .header-title {
-  opacity: 0.7;
+.chat-history-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chat-history-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .llm-content {
