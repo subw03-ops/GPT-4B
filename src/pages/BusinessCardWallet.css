@@ -175,7 +175,7 @@
 .carousel-track {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.6;
+  aspect-ratio: 1.9;
 }
 
 .carousel-card {
@@ -192,7 +192,7 @@
 
 .business-card-display {
   width: 100%;
-  aspect-ratio: 1.6;
+  aspect-ratio: 1.9;
   background: linear-gradient(147.99deg, rgba(109, 48, 223, 1) 0%, rgba(88, 76, 220, 1) 100%);
   border-radius: 20px;
   padding: 28px;
@@ -217,7 +217,7 @@
 }
 
 .card-company {
-  font-size: 14px;
+  font-size: 11.2px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
@@ -233,7 +233,7 @@
 }
 
 .card-name {
-  font-size: 15px;
+  font-size: 12.75px;
   font-weight: 600;
   color: white;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
@@ -241,7 +241,7 @@
 }
 
 .card-position {
-  font-size: 10px;
+  font-size: 8.5px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
@@ -256,7 +256,7 @@
 }
 
 .card-phone {
-  font-size: 9px;
+  font-size: 7.2px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.6);
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
@@ -264,7 +264,7 @@
 }
 
 .card-email {
-  font-size: 8.25px;
+  font-size: 6.6px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.6);
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
@@ -377,7 +377,7 @@
 
 .grid-business-card {
   width: 100%;
-  aspect-ratio: 1.6;
+  aspect-ratio: 1.9;
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
@@ -396,7 +396,7 @@
 }
 
 .grid-card-company {
-  font-size: 10px;
+  font-size: 8px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
@@ -415,7 +415,7 @@
 }
 
 .grid-card-name {
-  font-size: 14px;
+  font-size: 11.9px;
   font-weight: 600;
   color: white;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
@@ -426,7 +426,7 @@
 }
 
 .grid-card-position {
-  font-size: 10px;
+  font-size: 8.5px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
