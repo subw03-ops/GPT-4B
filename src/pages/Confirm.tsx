@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CardConfirm from "../components/CardConfirm/CardConfirm";
 import { BusinessCard, useCardStore } from "../store/cardStore";
@@ -12,14 +12,21 @@ const Confirm = () => {
     location.state as { fallbackCard?: BusinessCard } | null
   )?.fallbackCard;
   const pendingCard = useCardStore((state) => state.pendingCard);
-  const addCard = useCardStore((state) => state.addCard);
   const setPendingCard = useCardStore((state) => state.setPendingCard);
+  const [isEditMode, setIsEditMode] = useState(true); // OCR 후 바로 편집 모드로 진입
+  const [editedCard, setEditedCard] = useState<BusinessCard | null>(null);
 
   useEffect(() => {
     if (!pendingCard && fallbackCard) {
       setPendingCard(fallbackCard);
     }
   }, [fallbackCard, pendingCard, setPendingCard]);
+
+  useEffect(() => {
+    if (pendingCard) {
+      setEditedCard({ ...pendingCard });
+    }
+  }, [pendingCard]);
 
   if (!pendingCard) {
     return (
@@ -42,21 +49,35 @@ const Confirm = () => {
     );
   }
 
-  const handleConfirm = async () => {
-    try {
-      // DB에 저장
-      await addCard(pendingCard);
-      const savedCardId = pendingCard.id;
-      setPendingCard(null);
-      navigate("/business-cards", { state: { openCardId: savedCardId } });
-    } catch (error) {
-      console.error('Failed to save card:', error);
-      alert('명함 저장에 실패했습니다. 다시 시도해주세요.');
-    }
+  const handleConfirm = () => {
+    // 명함 추가정보 입력 페이지로 이동
+    navigate("/add-info", { state: { fromOCR: true, card: pendingCard } });
   };
 
   const handleEdit = () => {
-    navigate("/add", { state: { draft: pendingCard } });
+    setIsEditMode(true);
+  };
+
+  const handleSaveEdit = () => {
+    if (editedCard) {
+      setPendingCard(editedCard);
+      // 저장 완료 후 명함 추가정보 입력 페이지로 이동
+      navigate("/add-info", { state: { fromOCR: true, card: editedCard } });
+    }
+  };
+
+  const handleBack = () => {
+    // 뒤로가기: OCR 페이지로 돌아가기
+    navigate("/ocr");
+  };
+
+  const handleFieldChange = (field: keyof BusinessCard, value: string) => {
+    if (editedCard) {
+      setEditedCard({
+        ...editedCard,
+        [field]: value,
+      });
+    }
   };
 
   return (
@@ -66,13 +87,18 @@ const Confirm = () => {
           <p className="confirm-step">Step 2.</p>
           <h1 className="confirm-title">OCR 결과를 확인하세요</h1>
           <p className="confirm-subtitle">
-            정보가 잘 인식되었는지 확인 후, 수정이 필요하면 직접 편집하세요.
+            정보가 잘 인식되었는지 확인 후,<br />
+            수정이 필요하면 직접 편집하세요.
           </p>
         </div>
         <CardConfirm
-          card={pendingCard}
+          card={editedCard || pendingCard}
           onConfirm={handleConfirm}
           onEdit={handleEdit}
+          isEditMode={isEditMode}
+          onSaveEdit={handleSaveEdit}
+          onBack={handleBack}
+          onFieldChange={handleFieldChange}
         />
       </div>
     </div>

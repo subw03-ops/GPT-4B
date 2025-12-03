@@ -17,6 +17,7 @@ import MyDetailPage from './pages/MyDetailPage'
 import GiftHistoryPage from './pages/GiftHistoryPage'
 import PersonalGiftHistoryPage from './pages/PersonalGiftHistoryPage'
 import CardGiftHistoryPage from './pages/CardGiftHistoryPage'
+import BusinessCardGiftHistoryPage from './pages/BusinessCardGiftHistoryPage'
 import PopularGiftsPage from './pages/PopularGiftsPage'
 import GiftDetailPage from './pages/GiftDetailPage'
 import GiftRecommendPage from './pages/GiftRecommendPage'
@@ -25,6 +26,7 @@ import FilterPage from './pages/FilterPage'
 import OCR from './pages/OCR'
 import Confirm from './pages/Confirm'
 import AddInfo from './pages/AddInfo'
+import ManualAddCardPage from './pages/ManualAddCardPage'
 import CardDetail from './pages/CardDetail'
 import Cardbook from './pages/Cardbook'
 import CardCustomize from './pages/CardCustomize'
@@ -49,6 +51,8 @@ function App() {
         <Route path="/ocr" element={<OCR />} />
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/add" element={<AddInfo />} />
+        <Route path="/add-info" element={<AddInfo />} />
+        <Route path="/manual-add" element={<ManualAddCardPage />} />
         <Route path="/customize" element={<CardCustomize />} />
         <Route path="/cards" element={<Cardbook />} />
         <Route path="/cards/:id" element={<CardDetail />} />
@@ -60,6 +64,7 @@ function App() {
         <Route path="/my/edit" element={<EditMyInfoPage />} />
         <Route path="/my/gift-history" element={<PersonalGiftHistoryPage />} />
         <Route path="/card/gift-history" element={<CardGiftHistoryPage />} />
+        <Route path="/business-card/gift-history" element={<BusinessCardGiftHistoryPage />} />
         <Route path="/gift-recommend" element={<GiftRecommendPage />} />
         <Route path="/gift-recommend/result" element={<GiftRecommendResultPage />} />
         <Route path="/popular-gifts" element={<PopularGiftsPage />} />

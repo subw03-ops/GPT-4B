@@ -1,5 +1,5 @@
-/* CardGiftHistoryPage 전용 스타일 - PersonalGiftHistoryPage와 동일한 스타일 적용 */
-.card-gift-history-page {
+/* BusinessCardGiftHistoryPage 전용 스타일 - PersonalGiftHistoryPage UI 참고 */
+.business-card-gift-history-page {
   width: 100%;
   max-width: 393px;
   min-height: 100vh;
@@ -11,7 +11,7 @@
   padding-bottom: 100px;
 }
 
-.card-gift-history-container {
+.business-card-gift-history-container {
   width: 100%;
   min-height: calc(100vh - 100px);
   position: relative;
@@ -21,18 +21,19 @@
 }
 
 /* 헤더 */
-.card-gift-history-header {
+.business-card-gift-history-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 0;
+  padding: 8px 0;
   height: 56px;
   position: relative;
   z-index: 10;
   width: 100%;
+  margin-bottom: 0;
 }
 
-.card-gift-history-title {
+.business-card-gift-history-title {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: 600;
@@ -45,7 +46,7 @@
   white-space: nowrap;
 }
 
-.card-back-button {
+.business-card-back-button {
   width: 40px;
   height: 40px;
   background: transparent;
@@ -59,13 +60,13 @@
   z-index: 11;
 }
 
-.card-back-button svg {
+.business-card-back-button svg {
   width: 24px;
   height: 24px;
 }
 
 /* 연도별 탭 */
-.card-tab-list {
+.business-card-tab-list {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,145 +74,146 @@
   border-radius: 14px;
   height: 36px;
   padding: 3.5px;
-  margin: 0;
-  margin-top: 24px;
-  margin-bottom: 24px;
+  margin: 24px 0;
   gap: 0;
 }
 
-.card-tab-button {
+.business-card-tab-button {
   flex: 1;
   height: 29px;
   background: transparent;
   border: none;
-  border-radius: 14px;
+  border-radius: 10px;
   cursor: pointer;
   padding: 5px 9px;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 500;
+  line-height: 20px;
   color: #0a0a0a;
-  cursor: pointer;
+  letter-spacing: -0.1504px;
   transition: all 0.2s;
 }
 
-.card-tab-button.active {
+.business-card-tab-button.active {
   background: white;
   color: #0a0a0a;
   font-weight: 600;
 }
 
-/* 선물 이력 리스트 */
-.gift-list {
-  margin-top: 0;
+/* 선물 리스트 */
+.business-card-gift-list {
   display: flex;
   flex-direction: column;
   gap: 0;
+  padding: 0;
+  margin-top: 0;
 }
 
-.gift-card {
-  background: white;
+.business-card-gift-card {
   border-bottom: 1px solid #e5e7eb;
   padding: 16px 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.gift-card:last-child {
+.business-card-gift-card:last-child {
   border-bottom: none;
 }
 
-.gift-card-content {
+.business-card-gift-card-content {
   display: flex;
   gap: 12px;
-  padding: 0;
 }
 
-.gift-image-wrapper {
+.business-card-gift-image-wrapper {
   width: 100px;
   height: 100px;
-  flex-shrink: 0;
   border-radius: 12px;
   overflow: hidden;
   flex-shrink: 0;
   background: #f3f4f6;
 }
 
-.card-gift-image {
+.business-card-gift-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.gift-info {
-  flex: 1;
+.business-card-gift-info {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
   min-width: 0;
 }
 
-.gift-header {
+.business-card-gift-header {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.gift-recipient {
+.business-card-gift-recipient {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 600;
+  line-height: 1.4;
   color: #1f2937;
   margin: 0;
-  line-height: 1.4;
 }
 
-.card-gift-name {
+.business-card-gift-name {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 22px;
-  color: #0a0a0a;
-  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
   line-height: 1.4;
+  color: #1f2937;
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
-.card-gift-tags {
+.business-card-gift-badges {
   display: flex;
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
 }
 
-.category-badge {
+.business-card-category-badge {
   padding: 4px 10px;
   background: #e9d5ff;
   border-radius: 6px;
-  padding: 4px 8px;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 11px;
   font-weight: 500;
   color: #6b21a8;
 }
 
-.status-badge {
+.business-card-status-badge {
   padding: 4px 10px;
   background: #e9d5ff;
   border-radius: 6px;
-  padding: 4px 8px;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 11px;
   font-weight: 500;
   color: #6b21a8;
 }
 
-.card-gift-footer {
+.business-card-gift-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 4px;
+  margin-top: auto;
 }
 
-.card-gift-date {
+.business-card-gift-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -219,37 +221,22 @@
   color: #6a7282;
 }
 
-.date-icon {
+.business-card-date-icon {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
 }
 
-.card-loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
+.business-card-gift-price {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 600;
+  line-height: 22px;
   color: #1f2937;
   margin-left: auto;
 }
 
-.card-error {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: #ef4444;
-  text-align: center;
-}
-
-.card-empty {
+.business-card-loading {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -258,5 +245,18 @@
   font-size: 14px;
   font-weight: 400;
   color: #6a7282;
+}
+
+.business-card-empty-gift-history {
+  padding: 60px 20px;
   text-align: center;
 }
+
+.business-card-empty-gift-history p {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #9ca3af;
+  margin: 0;
+}
+

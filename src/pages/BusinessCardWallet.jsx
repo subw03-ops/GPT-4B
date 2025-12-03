@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import BottomNavigation from '../components/BottomNavigation'
 import { useCardStore } from '../store/cardStore'
+import { fetchBusinessCardGiftHistory } from './BusinessCardGiftHistoryPage'
 import { giftAPI } from '../utils/api'
 import { isAuthenticated } from '../utils/auth'
 import './BusinessCardWallet.css'
@@ -191,7 +192,7 @@ function BusinessCardWallet() {
           <div className="header-actions">
             <button 
               className="header-action-btn"
-              onClick={() => navigate('/add')}
+              onClick={() => navigate('/manual-add')}
             >
               <span className="action-icon">📝</span>
               <span className="action-label">수동 명함 등록</span>
@@ -391,43 +392,30 @@ function CardDetailModal({ card, onClose }) {
   const updateCard = useCardStore((state) => state.updateCard)
   const deleteCard = useCardStore((state) => state.deleteCard)
 
-  // DB에서 해당 명함의 선물 이력 개수 가져오기
+  // 현재 명함의 선물 이력 개수 계산 (BusinessCardGiftHistoryPage 데이터와 연동)
+  const [giftHistoryCount, setGiftHistoryCount] = useState(0)
+  
   useEffect(() => {
-    const fetchGiftCount = async () => {
-      if (!card || !card.id || !isAuthenticated()) {
-        setGiftHistoryCount(0)
-        return
-      }
-
-      setIsLoadingGifts(true)
+    if (!card) {
+      setGiftHistoryCount(0)
+      return
+    }
+    
+    const loadGiftHistoryCount = async () => {
       try {
-        // card.id를 숫자로 변환
-        let cardId = card.id
-        if (typeof cardId === 'string') {
-          cardId = parseInt(cardId, 10)
-          if (isNaN(cardId)) {
-            setGiftHistoryCount(0)
-            setIsLoadingGifts(false)
-            return
-          }
-        }
-
-        const response = await giftAPI.getAll({ cardId: String(cardId) })
-        if (response.data.success) {
-          const gifts = response.data.data || []
-          setGiftHistoryCount(gifts.length)
-        } else {
-          setGiftHistoryCount(0)
-        }
+        // 두 연도의 데이터를 모두 가져와서 총 개수 계산
+        const [data2025, data2024] = await Promise.all([
+          fetchBusinessCardGiftHistory(card.id, card.name, '2025'),
+          fetchBusinessCardGiftHistory(card.id, card.name, '2024')
+        ])
+        setGiftHistoryCount(data2025.length + data2024.length)
       } catch (error) {
-        console.error('Failed to fetch gift count:', error)
+        console.error('Failed to load gift history count:', error)
         setGiftHistoryCount(0)
-      } finally {
-        setIsLoadingGifts(false)
       }
     }
-
-    fetchGiftCount()
+    
+    loadGiftHistoryCount()
   }, [card])
 
   const handleSaveMemo = () => {
@@ -463,8 +451,8 @@ function CardDetailModal({ card, onClose }) {
   }
 
   const handleGiftHistory = () => {
-    // 해당 명함의 선물 히스토리 페이지로 이동
-    navigate('/card/gift-history', { state: { card } })
+    // 해당 명함의 선물 히스토리 페이지로 이동 (새로운 독립적인 페이지)
+    navigate('/business-card/gift-history', { state: { card } })
   }
 
   // 모달 배경색 (명함 디자인에 맞춤)
