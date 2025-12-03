@@ -78,6 +78,14 @@
 .action-icon {
   font-size: 20px;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-icon svg {
+  width: 20px;
+  height: 20px;
 }
 
 .action-label {
@@ -111,9 +119,13 @@
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
+  width: 14px;
+  height: 14px;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
 .search-input {
@@ -501,7 +513,7 @@
   color: #6a7282;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   text-align: center;
-  margin: 60px 0 2px 0;
+  margin: 16px 0 2px 0;
 }
 
 .upgrade-link {

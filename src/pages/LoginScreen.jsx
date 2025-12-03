@@ -3,8 +3,17 @@ import { useNavigate, Link } from 'react-router-dom'
 import './LoginScreen.css'
 
 const imgGpt4B1 = "https://www.figma.com/api/mcp/asset/c2072de6-f1a8-4f36-a042-2df786f153b1"
-const imgIcOutlineEmail = "https://www.figma.com/api/mcp/asset/b9bbe3d1-1d33-4914-ad5a-3bd8bf32a0ed"
 const imgApple = "https://www.figma.com/api/mcp/asset/05066b17-b82b-4d45-b469-7ad77994a1c4"
+
+// 이메일 아이콘 SVG 컴포넌트
+function EmailIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="rgba(0, 0, 0, 0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M22 6L12 13L2 6" stroke="rgba(0, 0, 0, 0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
 
 // 눈 아이콘 SVG 컴포넌트
 function EyeIcon({ isOpen }) {
@@ -89,7 +98,9 @@ function LoginScreen() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="login-input"
               />
-              <img src={imgIcOutlineEmail} alt="email" className="input-icon-right" />
+              <div className="input-icon-right">
+                <EmailIcon />
+              </div>
             </div>
           </div>
 
