@@ -75,6 +75,9 @@
   height: 24px;
   z-index: 1;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-input {

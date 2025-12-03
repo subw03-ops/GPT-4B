@@ -325,7 +325,6 @@ function LandingPage() {
         <div className="popular-gifts-section">
           <div className="section-header">
             <div className="section-title-wrapper">
-              <img src={imgIcon1} alt="gift" className="section-icon" />
               <h2 className="section-title">인기 선물</h2>
             </div>
           </div>

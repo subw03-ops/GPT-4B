@@ -6,9 +6,83 @@ import { giftAPI } from '../utils/api'
 import { isAuthenticated } from '../utils/auth'
 import './BusinessCardWallet.css'
 
-const imgIcon = "https://www.figma.com/api/mcp/asset/d56d758a-c7b8-42c8-bd08-19709b82a5d6"
 const imgGpt4B1 = "https://www.figma.com/api/mcp/asset/c2072de6-f1a8-4f36-a042-2df786f153b1"
 
+// 돋보기 아이콘 SVG 컴포넌트
+function SearchIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="#717182" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M19 19L14.65 14.65" stroke="#717182" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
+// 연필 아이콘 SVG 컴포넌트 (수동 명함 등록)
+function PenIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M18.5 2.50023C18.8978 2.10243 19.4374 1.87891 20 1.87891C20.5626 1.87891 21.1022 2.10243 21.5 2.50023C21.8978 2.89804 22.1213 3.43762 22.1213 4.00023C22.1213 4.56284 21.8978 5.10243 21.5 5.50023L12 15.0002L8 16.0002L9 12.0002L18.5 2.50023Z" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
+// 카메라 아이콘 SVG 컴포넌트 (OCR로 명함 추가)
+function CameraIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M23 19C23 19.5304 22.7893 20.0391 22.4142 20.4142C22.0391 20.7893 21.5304 21 21 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8C1 7.46957 1.21071 6.96086 1.58579 6.58579C1.96086 6.21071 2.46957 6 3 6H7L9 4H15L17 6H21C21.5304 6 22.0391 6.21071 22.4142 6.58579C22.7893 6.96086 23 7.46957 23 8V19Z" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="12" cy="13" r="4" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
+// 전체 선물 이력 데이터 (실제로는 store나 API에서 가져와야 함)
+const allGiftHistory = [
+  {
+    id: 1,
+    cardId: 'card-park-sangmu',
+    cardName: '박상무',
+    giftName: '프리미엄 와인 세트',
+    year: '2025'
+  },
+  {
+    id: 2,
+    cardId: 'card-1',
+    cardName: '안연주',
+    giftName: '명품 선물 세트',
+    year: '2025'
+  },
+  {
+    id: 3,
+    cardId: 'card-2',
+    cardName: '이부장',
+    giftName: '꽃다발 선물',
+    year: '2025'
+  },
+  {
+    id: 4,
+    cardId: 'card-3',
+    cardName: '최대리',
+    giftName: '초콜릿 선물 세트',
+    year: '2025'
+  },
+  {
+    id: 5,
+    cardId: 'card-1',
+    cardName: '안연주',
+    giftName: '선물 배송 상자',
+    year: '2024'
+  },
+  {
+    id: 6,
+    cardId: 'card-2',
+    cardName: '이부장',
+    giftName: '고급 와인 세트',
+    year: '2024'
+  }
+]
 
 // 명함 디자인 맵
 const cardDesigns = {
@@ -172,7 +246,9 @@ function BusinessCardWallet() {
         {/* Search Section */}
         <div className="search-section">
           <div className="search-wrapper">
-            <img src={imgIcon} alt="search" className="search-icon" />
+            <div className="search-icon">
+              <SearchIcon />
+            </div>
             <input
               type="text"
               placeholder="회사명, 직책 등을 검색하세요"
@@ -193,14 +269,18 @@ function BusinessCardWallet() {
               className="header-action-btn"
               onClick={() => navigate('/manual-add')}
             >
-              <span className="action-icon">📝</span>
+              <span className="action-icon">
+                <PenIcon />
+              </span>
               <span className="action-label">수동 명함 등록</span>
             </button>
             <button 
               className="header-action-btn"
               onClick={() => navigate('/ocr')}
             >
-              <span className="action-icon">📷</span>
+              <span className="action-icon">
+                <CameraIcon />
+              </span>
               <span className="action-label">OCR로 명함 추가</span>
             </button>
           </div>
