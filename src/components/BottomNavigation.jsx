@@ -52,6 +52,12 @@ function BottomNavigation() {
       // MY 탭은 /my로 시작하는 모든 경로에서 활성화
       return location.pathname === path || location.pathname.startsWith('/my/')
     }
+    if (path === '/ai-card-select') {
+      // AI 추천 탭은 명함 선택 페이지와 선물 추천 관련 페이지에서 활성화
+      return location.pathname === path || 
+             location.pathname === '/gift-recommend' ||
+             location.pathname.startsWith('/gift-recommend/')
+    }
     return location.pathname === path
   }
 
@@ -77,8 +83,8 @@ function BottomNavigation() {
       </Link>
 
       <Link 
-        to="/llm" 
-        className={`nav-item ai-recommend ${isActive('/llm') ? 'active' : ''}`}
+        to="/ai-card-select" 
+        className={`nav-item ai-recommend ${isActive('/ai-card-select') ? 'active' : ''}`}
       >
         <div className="ai-icon-wrapper">
           <img src="/assets/gpt_4b_logo_white.png" alt="GPT-4b" className="ai-logo" />

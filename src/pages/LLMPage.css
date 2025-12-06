@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 80px;
+  padding-bottom: 20px;
 }
 
 .llm-header {
@@ -95,7 +95,7 @@
   gap: 16px;
   padding: 20px;
   overflow-y: auto;
-  padding-bottom: 80px;
+  padding-bottom: 20px;
 }
 
 .logo-section {
@@ -134,87 +134,6 @@
   color: #999;
   font-family: 'Mulish', 'Noto Sans KR', sans-serif;
   margin: 0;
-}
-
-.input-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-  gap: 12px;
-  background-color: white;
-  position: fixed;
-  bottom: 83px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 393px;
-  z-index: 1001;
-}
-
-/* 모달이 열렸을 때 입력 바가 뒤로 가도록 */
-.llm-page.modal-active .input-bar {
-  z-index: 999;
-}
-
-.input-bar-icon {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #252525;
-  flex-shrink: 0;
-}
-
-.input-bar-icon:hover {
-  opacity: 0.7;
-}
-
-.message-input {
-  flex: 1;
-  padding: 12px 16px;
-  border: 1px solid #E0E0E0;
-  border-radius: 24px;
-  font-size: 14px;
-  font-family: 'Mulish', 'Noto Sans KR', sans-serif;
-  color: #252525;
-  outline: none;
-  background-color: #F5F5F5;
-}
-
-.message-input:focus {
-  border-color: #584CDC;
-  background-color: white;
-}
-
-.message-input::placeholder {
-  color: #999;
-}
-
-.send-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #584CDC;
-  flex-shrink: 0;
-  transition: opacity 0.2s;
-}
-
-.send-button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.send-button:not(:disabled):hover {
-  opacity: 0.7;
 }
 
 /* Message Bubbles */
@@ -329,23 +248,6 @@
 
 .llm-page.tutorial-active .llm-container {
   pointer-events: none;
-}
-
-.llm-page.tutorial-active .input-bar {
-  pointer-events: none;
-  position: fixed;
-  bottom: 83px;
-  z-index: 1001;
-}
-
-.llm-page.tutorial-active .input-bar-icon {
-  pointer-events: auto;
-}
-
-.llm-page.tutorial-active .message-input,
-.llm-page.tutorial-active .send-button {
-  pointer-events: none;
-  opacity: 0.3;
 }
 
 /* LLM Selection Modal */

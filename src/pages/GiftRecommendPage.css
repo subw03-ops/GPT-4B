@@ -72,8 +72,15 @@
 .gift-recommend-header {
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
-  padding-top: 8px;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-top: 32px;
+  padding-bottom: 8px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  min-height: 60px;
 }
 
 .back-button {
@@ -86,6 +93,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+}
+
+.page-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #252525;
+  margin: 0;
+  text-align: center;
 }
 
 /* Contact Info Section */

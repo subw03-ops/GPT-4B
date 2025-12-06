@@ -254,7 +254,7 @@ function PopularGiftsPage() {
     // 카테고리 필터 (여러 개 선택 가능)
     if (appliedCategories.length > 0) {
       if (!appliedCategories.includes(gift.category)) {
-        return false
+      return false
       }
     }
 

@@ -40,6 +40,12 @@ function GiftRecommendPage() {
   }, [])
 
   const handleBack = () => {
+    // AI 추천 명함 선택 페이지에서 온 경우
+    if (location.state?.from === 'ai-card-select') {
+      navigate('/ai-card-select')
+      return
+    }
+    
     // 명함 상세 모달로 돌아가기
     if (card?.id) {
       navigate('/business-cards', { 
@@ -172,6 +178,8 @@ function GiftRecommendPage() {
               <path d="M15 18L9 12L15 6" stroke="#1f2937" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
+          <h1 className="page-title">선물 추천 설정</h1>
+          <div style={{ width: '40px' }}></div>
         </div>
 
         {/* Contact Info */}

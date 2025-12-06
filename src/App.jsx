@@ -24,6 +24,7 @@ import GiftDetailPage from './pages/GiftDetailPage'
 import GiftRecommendPage from './pages/GiftRecommendPage'
 import GiftRecommendResultPage from './pages/GiftRecommendResultPage'
 import FilterPage from './pages/FilterPage'
+import AICardSelectPage from './pages/AICardSelectPage'
 import OCR from './pages/OCR'
 import Confirm from './pages/Confirm'
 import AddInfo from './pages/AddInfo'
@@ -46,6 +47,7 @@ function App() {
         <Route path="/signup/form" element={<SignupFormPage />} />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/llm" element={<LLMPage />} />
+        <Route path="/ai-card-select" element={<AICardSelectPage />} />
         <Route path="/chat-history" element={<ChatHistoryPage />} />
         <Route path="/chat-history/:id" element={<ChatDetailPage />} />
         <Route path="/dashboard" element={<LandingPage />} />

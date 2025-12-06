@@ -297,13 +297,13 @@ function LandingPage() {
       <div className="landing-container">
         {/* AI Gift Recommendation Banner */}
         <div className="ai-banner">
-          {/* Header */}
-          <div className="landing-header">
-            <img src="/assets/gpt_4b_logo_blueberry.png" alt="GPT-4b Logo" className="header-logo" />
-            {userName && (
-              <span className="welcome-message">{userName}님 환영합니다!</span>
-            )}
-          </div>
+        {/* Header */}
+        <div className="landing-header">
+          <img src="/assets/gpt_4b_logo_blueberry.png" alt="GPT-4b Logo" className="header-logo" />
+          {userName && (
+            <span className="welcome-message">{userName}님 환영합니다!</span>
+          )}
+        </div>
           <div className="banner-content">
             <div className="banner-text">
               <p className="banner-subtitle">AI 맞춤형 선물 추천 서비스 GPT-4b</p>

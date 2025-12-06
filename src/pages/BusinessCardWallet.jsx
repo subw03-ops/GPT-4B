@@ -626,23 +626,6 @@ function CardDetailModal({ card, onClose }) {
 
         {/* Gift Action Buttons */}
         <div className="modal-gift-actions">
-          <button className="modal-gift-card-button modal-gift-recommend-button" onClick={handleGiftRecommend}>
-            <div className="gift-card-content-wrapper">
-              <div className="gift-card-info">
-                <div className="gift-card-label-row">
-                  <img src="/assets/gpt_4b_logo_blueberry.png" alt="GPT-4b Logo" className="gift-card-logo" />
-                  <div className="gift-card-label-wrapper">
-                    <span className="gift-card-label">선물 추천</span>
-                    <span className="gift-card-label">받으러가기</span>
-                  </div>
-                </div>
-              </div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="gift-card-arrow">
-                <path d="M9 18L15 12L9 6" stroke="#1f2937" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-          </button>
-          
           <button className="modal-gift-card-button" onClick={handleGiftHistory}>
             <div className="gift-card-content-wrapper">
               <div className="gift-card-info">

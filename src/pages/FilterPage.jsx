@@ -123,13 +123,13 @@ function FilterPage() {
                   ? selectedCategories.length === 0
                   : selectedCategories.includes(category)
                 return (
-                  <button
-                    key={category}
+                <button
+                  key={category}
                     className={`category-button ${isSelected ? 'selected' : ''}`}
                     onClick={() => handleCategoryToggle(category)}
-                  >
-                    {category}
-                  </button>
+                >
+                  {category}
+                </button>
                 )
               })}
             </div>
@@ -144,13 +144,13 @@ function FilterPage() {
                   ? selectedPriceRanges.length === 0
                   : selectedPriceRanges.includes(range)
                 return (
-                  <button
-                    key={range}
+                <button
+                  key={range}
                     className={`price-range-button ${isSelected ? 'selected' : ''}`}
                     onClick={() => handlePriceRangeToggle(range)}
-                  >
-                    {range}
-                  </button>
+                >
+                  {range}
+                </button>
                 )
               })}
             </div>

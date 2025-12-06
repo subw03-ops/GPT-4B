@@ -387,7 +387,7 @@ function GiftRecommendResultPage() {
                     </div>
                     <div className="gift-card-content">
                       <div className="gift-card-header">
-                        <h3 className="gift-card-title">{gift.name}</h3>
+                      <h3 className="gift-card-title">{gift.name}</h3>
                         {gift.url && gift.url !== '#' ? (
                           <a 
                             href={gift.url} 
@@ -406,7 +406,7 @@ function GiftRecommendResultPage() {
                       <div className="gift-card-bottom">
                         <span className="gift-card-price">
                           ₩{Number(gift.price).toLocaleString()}
-                        </span>
+                          </span>
                         <button
                           className={`gift-select-button ${selectedGiftIndex === index ? 'selected' : ''}`}
                           onClick={() => handleSelectGift(gift, index)}
