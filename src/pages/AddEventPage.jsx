@@ -58,10 +58,10 @@ const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 const WEEKDAYS_KR = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
 
 const CATEGORIES = [
-  { id: '미팅', label: '미팅', color: '#584cdc' },
-  { id: '업무', label: '업무', color: '#2b7fff' },
-  { id: '개인', label: '개인', color: '#00c950' },
-  { id: '기타', label: '기타', color: '#9ca3af' }
+  { id: '미팅', label: '미팅', color: '#8f85e7' },
+  { id: '업무', label: '업무', color: '#5b99f9' },
+  { id: '개인', label: '개인', color: '#81bf99' },
+  { id: '기타', label: '기타', color: '#9da3af' }
 ]
 
 function AddEventPage() {
@@ -259,13 +259,8 @@ function AddEventPage() {
       const response = await calendarAPI.createEvent(eventData)
 
       if (response.data && response.data.success) {
-        // 일정 추가 후 일정 상세 페이지로 이동
-        const createdEventId = response.data.data.id || response.data.data.eventId
-        if (createdEventId) {
-          navigate(`/calendar/event/${createdEventId}`)
-        } else {
-          navigate('/calendar')
-        }
+        // 일정 추가 후 선택한 날짜로 캘린더 이동
+        navigate('/calendar', { state: { selectedDate: selectedDate } })
       } else {
         throw new Error('Failed to create event')
       }
@@ -512,7 +507,7 @@ function AddEventPage() {
         <div className="notification-label">알림</div>
         <div className="notification-dropdown-wrapper">
           <button
-            className="notification-button"
+            className={`notification-button ${showNotificationDropdown ? 'dropdown-open' : ''}`}
             onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
             type="button"
           >

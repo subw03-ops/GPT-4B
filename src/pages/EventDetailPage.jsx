@@ -194,9 +194,13 @@ function EventDetailPage() {
   }, [eventId])
 
   const handleBack = () => {
-
-    navigate('/calendar')
-
+    // 일정이 있는 날짜로 캘린더 이동
+    if (event && event.startDate) {
+      const eventDate = new Date(event.startDate)
+      navigate('/calendar', { state: { selectedDate: eventDate } })
+    } else {
+      navigate('/calendar')
+    }
   }
 
   const handleEdit = () => {
@@ -269,7 +273,7 @@ function EventDetailPage() {
           setIsEditing(false)
           setShowNotificationDropdown(false)
           
-          // 편집 모드 종료 후 일정 상세 페이지에 머물기 (캘린더로 이동하지 않음)
+          // 편집 모드 종료 후 일정 상세 페이지에 머물기
           return
         } else {
           throw new Error('일정 업데이트에 실패했습니다.')
@@ -307,6 +311,8 @@ function EventDetailPage() {
 
       setIsEditing(false)
       setShowNotificationDropdown(false)
+      
+      // 편집 모드 종료 후 일정 상세 페이지에 머물기 (localStorage fallback)
 
     } catch (err) {
       console.error('이벤트 저장 실패:', err)
@@ -464,13 +470,13 @@ function EventDetailPage() {
 
       </div>
 
-      {/* 미팅 정보 섹션 */}
+      {/* 일정 정보 섹션 */}
 
       <div className="meeting-info-section">
 
         <div className="section-header">
 
-          <h3 className="section-title">미팅 정보</h3>
+          <h3 className="section-title">일정 정보</h3>
 
         </div>
 
@@ -820,7 +826,7 @@ function EventDetailPage() {
 
             <button 
 
-              className="notification-button"
+              className={`notification-button ${showNotificationDropdown ? 'dropdown-open' : ''}`}
 
               onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
 

@@ -535,6 +535,102 @@
   transform: scale(0.98);
 }
 
+/* 알림 섹션 */
+.notification-section {
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.notification-label {
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0a0a0a;
+  margin-bottom: 8px;
+  display: block;
+  text-align: left;
+}
+
+.notification-dropdown-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.notification-button {
+  width: 100%;
+  background: var(--input-bg-color);
+  border: none;
+  border-radius: 10px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  cursor: pointer;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #717182;
+  line-height: 20px;
+  letter-spacing: -0.3125px;
+  box-sizing: border-box;
+}
+
+.notification-button:hover {
+  background: var(--input-bg-hover);
+}
+
+.notification-button svg {
+  transition: transform 0.2s ease;
+}
+
+.notification-button.dropdown-open svg {
+  transform: rotate(180deg);
+}
+
+.notification-dropdown {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 8px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 200px;
+  max-width: 280px;
+  overflow: hidden;
+}
+
+.notification-option {
+  width: 100%;
+  padding: 12px 16px;
+  background: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #364153;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.2s;
+}
+
+.notification-option:hover {
+  background: #f9fafb;
+}
+
+.notification-option.selected {
+  color: #584cdc;
+  font-weight: 500;
+}
+
 @media (max-width: 430px) {
   .add-button {
     right: 33px;

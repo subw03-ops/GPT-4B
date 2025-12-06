@@ -639,11 +639,19 @@
   background: #e5e5e5;
 }
 
+.notification-button svg {
+  transition: transform 0.2s ease;
+}
+
+.notification-button.dropdown-open svg {
+  transform: rotate(180deg);
+}
+
 .notification-dropdown {
   position: absolute;
-  top: 100%;
+  bottom: 100%;
   right: 0;
-  margin-top: 8px;
+  margin-bottom: 8px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);

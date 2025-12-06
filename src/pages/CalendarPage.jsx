@@ -17,10 +17,10 @@ function DropdownIcon() {
 const WEEKDAYS_KR = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
 
 const CATEGORIES = [
-  { id: '미팅', label: '미팅', color: '#584cdc' },
-  { id: '업무', label: '업무', color: '#2b7fff' },
-  { id: '개인', label: '개인', color: '#00c950' },
-  { id: '기타', label: '기타', color: '#9ca3af' }
+  { id: '미팅', label: '미팅', color: '#8f85e7' },
+  { id: '업무', label: '업무', color: '#5b99f9' },
+  { id: '개인', label: '개인', color: '#81bf99' },
+  { id: '기타', label: '기타', color: '#9da3af' }
 ]
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 
@@ -30,10 +30,10 @@ const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 // 구글 캘린더 색상 ID를 UI 색상으로 매핑
 // 구글 캘린더 colorId: 1-11 (기본 색상), 여기서는 카테고리별 색상으로 매핑
 const COLOR_MAP = {
-  '미팅': '#ad46ff',
-  '업무': '#2b7fff',
-  '개인': '#00c950',
-  '기타': '#9ca3af'
+  '미팅': '#8f85e7',
+  '업무': '#5b99f9',
+  '개인': '#81bf99',
+  '기타': '#9da3af'
 }
 
 // 구글 캘린더 colorId를 카테고리로 변환 (기본값)
@@ -230,6 +230,15 @@ function CalendarPage() {
       setEvents(transformedEvents)
     })
   }, [currentDate])
+
+  // location.state에서 전달된 날짜가 변경되면 업데이트
+  useEffect(() => {
+    if (location.state?.selectedDate) {
+      const newDate = new Date(location.state.selectedDate)
+      setSelectedDate(newDate)
+      setCurrentDate(newDate)
+    }
+  }, [location.state?.selectedDate])
 
   // location.state에서 refreshEvents가 true이면 이벤트 새로고침
   useEffect(() => {
@@ -926,7 +935,7 @@ function CalendarPage() {
               <label className="notification-label">알림</label>
               <div className="notification-edit-wrapper">
                 <button 
-                  className="notification-button"
+                  className={`notification-button ${showNotificationDropdown ? 'dropdown-open' : ''}`}
                   onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
                 >
                   <span>{formData.notification || '없음'}</span>

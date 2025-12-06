@@ -108,19 +108,19 @@ function LandingPage() {
     const startDate = new Date(eventStartDate)
     let notificationTime = new Date(startDate)
 
-    // 알림 설정에 따라 시간 계산
+    // 알림 설정에 따라 시간 계산 (밀리초 단위로 정확하게 계산)
     if (notificationSetting.includes('분 전')) {
       const minutes = parseInt(notificationSetting.replace('분 전', ''))
-      notificationTime.setMinutes(notificationTime.getMinutes() - minutes)
+      notificationTime.setTime(notificationTime.getTime() - (minutes * 60 * 1000))
     } else if (notificationSetting.includes('시간 전')) {
       const hours = parseInt(notificationSetting.replace('시간 전', ''))
-      notificationTime.setHours(notificationTime.getHours() - hours)
+      notificationTime.setTime(notificationTime.getTime() - (hours * 60 * 60 * 1000))
     } else if (notificationSetting.includes('일 전')) {
       const days = parseInt(notificationSetting.replace('일 전', ''))
-      notificationTime.setDate(notificationTime.getDate() - days)
+      notificationTime.setTime(notificationTime.getTime() - (days * 24 * 60 * 60 * 1000))
     } else if (notificationSetting.includes('주 전')) {
       const weeks = parseInt(notificationSetting.replace('주 전', ''))
-      notificationTime.setDate(notificationTime.getDate() - (weeks * 7))
+      notificationTime.setTime(notificationTime.getTime() - (weeks * 7 * 24 * 60 * 60 * 1000))
     }
 
     return notificationTime
@@ -206,6 +206,19 @@ function LandingPage() {
     return '📅'
   }
 
+  // 알림 배경색 결정 함수 (일정 태그 색상의 파스텔톤)
+  const getAlertBackgroundColor = (event) => {
+    const category = event.category || '기타'
+    // 일정 태그 색상의 파스텔톤 버전 (새로운 색상에 맞춰 조정, 더 진하게)
+    const pastelColors = {
+      '미팅': '#f0eff8', // #8f85e7의 파스텔톤 (보라색 톤)
+      '업무': '#c5d9ff', // #5b99f9의 파스텔톤 (더 진하게)
+      '개인': '#c0e6d0', // #81bf99의 파스텔톤 (더 진하게)
+      '기타': '#d1d5db'  // #9da3af의 파스텔톤 (더 진하게)
+    }
+    return pastelColors[category] || pastelColors['기타']
+  }
+
   // 캘린더 이벤트에서 알림 가져오기
   useEffect(() => {
     const fetchAlerts = async () => {
@@ -235,14 +248,26 @@ function LandingPage() {
             const notificationTime = calculateNotificationTime(event.startDate, event.notification)
             if (!notificationTime) return false
 
-            // 알림 시간이 현재 시간 이전이거나 같고, 일정 시작 시간 이전인 경우
             const eventStart = new Date(event.startDate)
-            // 알림 시간이 지났고, 일정 시작 시간이 아직 지나지 않은 경우
-            // 알림 시간과 현재 시간의 차이가 24시간 이내인 경우만 표시 (너무 오래된 알림 제외)
+            
+            // 알림 시간이 현재 시간과 같거나 지났고, 일정 시작 시간이 아직 지나지 않은 경우
+            // 알림 시간이 정확히 되었을 때부터 일정 시작 시간까지 표시
+            const isNotificationTimeReached = notificationTime <= now
+            const isEventNotStarted = now < eventStart
+            
+            // 알림 시간과 현재 시간의 차이 계산
             const timeSinceNotification = now - notificationTime
             const hoursSinceNotification = timeSinceNotification / (1000 * 60 * 60)
             
-            return notificationTime <= now && now < eventStart && hoursSinceNotification <= 24
+            // 일정 시작 시간까지의 남은 시간 계산
+            const timeUntilEvent = eventStart - now
+            const hoursUntilEvent = timeUntilEvent / (1000 * 60 * 60)
+            
+            // 알림 시간이 지났고, 일정이 아직 시작하지 않았으며
+            // 알림이 일정 시작 시간 이전에 설정된 경우 표시
+            // (예: "2일 전" 알림은 일정 시작 2일 전부터 일정 시작 시간까지 표시)
+            // 단, 일정 시작 시간이 7일 이내인 경우만 표시 (너무 먼 미래 일정 제외)
+            return isNotificationTimeReached && isEventNotStarted && hoursUntilEvent <= 168 // 7일 = 168시간
           })
           
           // 알림 시간 순으로 정렬 (가장 가까운 일정이 먼저)
@@ -258,7 +283,9 @@ function LandingPage() {
             icon: getAlertIcon(event),
             text: generateAlertText(event),
             event: event,
-            type: 'calendar'
+            type: 'calendar',
+            backgroundColor: getAlertBackgroundColor(event),
+            category: event.category || '기타'
           }))
 
           setAlerts(alertList)
@@ -271,8 +298,8 @@ function LandingPage() {
 
     fetchAlerts()
     
-    // 1분마다 알림 업데이트 (실시간 반영)
-    const interval = setInterval(fetchAlerts, 60000)
+    // 30초마다 알림 업데이트 (알림 시간에 정확히 맞춰 표시하기 위해 더 자주 체크)
+    const interval = setInterval(fetchAlerts, 30000)
     return () => clearInterval(interval)
   }, [])
 
@@ -371,17 +398,31 @@ function LandingPage() {
           <h2 className="alerts-title">중요 알림</h2>
           <div className="alerts-list">
             {alerts.length > 0 ? (
-              alerts.map((alert) => (
-                <div key={alert.id} className="alert-card">
-                  <p className="alert-text">{alert.text}</p>
-                  <button 
-                    className="alert-button"
-                    onClick={() => handleViewAlert(alert)}
+              alerts.map((alert) => {
+                const isMeeting = alert.category === '미팅'
+                return (
+                  <div 
+                    key={alert.id} 
+                    className="alert-card"
+                    style={{ 
+                      backgroundColor: isMeeting ? '#8e86e6' : alert.backgroundColor 
+                    }}
                   >
-                    보기
-                  </button>
-                </div>
-              ))
+                    <p 
+                      className="alert-text"
+                      style={{ color: isMeeting ? 'white' : '#0a0a0a' }}
+                    >
+                      {alert.text}
+                    </p>
+                    <button
+                      className="alert-button"
+                      onClick={() => handleViewAlert(alert)}
+                    >
+                      보기
+                    </button>
+                  </div>
+                )
+              })
             ) : (
               <div className="no-alerts">
                 <p className="no-alerts-text">아직 등록된 일정이 없어요.</p>

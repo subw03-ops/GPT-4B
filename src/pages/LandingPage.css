@@ -355,7 +355,6 @@
 }
 
 .alert-card {
-  background: #8e86e6;
   border: none;
   border-radius: 13px;
   padding: 15px;
@@ -373,7 +372,7 @@
   flex: 1;
   font-size: 15px;
   font-weight: 400;
-  color: white;
+  color: #0a0a0a;
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
   line-height: 22px;
   margin: 0;
