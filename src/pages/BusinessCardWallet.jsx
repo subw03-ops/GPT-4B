@@ -192,6 +192,12 @@ function BusinessCardWallet() {
   }
 
   const handleCardClick = (cardId) => {
+    // 클릭한 카드의 인덱스를 찾아서 currentIndex 업데이트
+    const cardIndex = filteredCards.findIndex(card => card.id === cardId)
+    if (cardIndex !== -1) {
+      setCurrentIndex(cardIndex)
+    }
+    
     setFlippingCardId(cardId)
     setIsFlipping(true)
     
