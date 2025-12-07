@@ -175,8 +175,6 @@ function LandingPage() {
         const lastName = participantsList[participantsList.length - 1]
         participantText = `${names}, ${lastName} 님과의`
       }
-    } else {
-      participantText = '일정'
     }
 
     // 이벤트 시작 시간에서 현재 시간까지 남은 시간 계산
@@ -185,7 +183,11 @@ function LandingPage() {
     
     // 이미 지난 일정인 경우
     if (diffTime <= 0) {
-      return `${participantText} ${event.title} 일정이 지났습니다.`
+      if (participantText) {
+        return `${participantText} ${event.title} 일정이 지났습니다.`
+      } else {
+        return `${event.title} 일정이 지났습니다.`
+      }
     }
 
     // 남은 시간 계산
@@ -232,7 +234,11 @@ function LandingPage() {
       timeText = '지금입니다'
     }
 
-    return `${participantText} ${event.title} 일정이 ${timeText}.`
+    if (participantText) {
+      return `${participantText} ${event.title} 일정이 ${timeText}.`
+    } else {
+      return `${event.title} 일정이 ${timeText}.`
+    }
   }
 
   // 알림 아이콘 결정 함수

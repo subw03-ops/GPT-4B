@@ -370,6 +370,12 @@ function EventDetailPage() {
 
   }
 
+  const handleRemoveParticipant = (indexToRemove) => {
+    const participants = formData.participant ? formData.participant.split(', ') : []
+    const updatedParticipants = participants.filter((_, index) => index !== indexToRemove)
+    handleInputChange('participant', updatedParticipants.join(', '))
+  }
+
   const handleDelete = async () => {
 
     if (window.confirm('정말 이 일정을 삭제하시겠습니까?')) {
@@ -761,6 +767,13 @@ function EventDetailPage() {
                 {formData.participant.split(', ').map((p, index) => (
                   <div key={index} className="participant-item">
                     <span>{p.trim()}</span>
+                    <button
+                      type="button"
+                      className="participant-remove-btn"
+                      onClick={() => handleRemoveParticipant(index)}
+                    >
+                      ×
+                    </button>
                   </div>
                 ))}
               </div>
