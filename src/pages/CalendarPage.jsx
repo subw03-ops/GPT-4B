@@ -17,10 +17,10 @@ function DropdownIcon() {
 const WEEKDAYS_KR = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
 
 const CATEGORIES = [
-  { id: '미팅', label: '미팅', color: '#8f85e7' },
-  { id: '업무', label: '업무', color: '#5b99f9' },
-  { id: '개인', label: '개인', color: '#81bf99' },
-  { id: '기타', label: '기타', color: '#9da3af' }
+  { id: '미팅', label: '미팅', color: '#584cdc' },
+  { id: '업무', label: '업무', color: '#3b82f6' },
+  { id: '개인', label: '개인', color: '#10b981' },
+  { id: '기타', label: '기타', color: '#6b7280' }
 ]
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 
@@ -30,10 +30,10 @@ const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 // 구글 캘린더 색상 ID를 UI 색상으로 매핑
 // 구글 캘린더 colorId: 1-11 (기본 색상), 여기서는 카테고리별 색상으로 매핑
 const COLOR_MAP = {
-  '미팅': '#8f85e7',
-  '업무': '#5b99f9',
-  '개인': '#81bf99',
-  '기타': '#9da3af'
+  '미팅': '#584cdc',
+  '업무': '#3b82f6',
+  '개인': '#10b981',
+  '기타': '#6b7280'
 }
 
 // 구글 캘린더 colorId를 카테고리로 변환 (기본값)
@@ -407,11 +407,17 @@ function CalendarPage() {
   }
 
   const handleTimeChange = (type, field, value) => {
+    let inputValue = String(value)
+    // "0"으로 시작하는 두 자리 이상 숫자(예: "01", "05", "07")인 경우 첫 번째 "0" 제거
+    // 단, "00"은 그대로 유지
+    if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+      inputValue = inputValue.substring(1)
+    }
     setFormData(prev => ({
       ...prev,
       [type]: {
         ...prev[type],
-        [field]: parseInt(value) || 0
+        [field]: parseInt(inputValue) || 0
       }
     }))
   }
@@ -883,6 +889,13 @@ function CalendarPage() {
                       min="0"
                       max="23"
                       value={formData.startTime.hour}
+                      onInput={(e) => {
+                        let inputValue = e.target.value
+                        if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                          inputValue = inputValue.substring(1)
+                          e.target.value = inputValue
+                        }
+                      }}
                       onChange={(e) => handleTimeChange('startTime', 'hour', e.target.value)}
                       className="calendar-time-input"
                     />
@@ -892,6 +905,13 @@ function CalendarPage() {
                       min="0"
                       max="59"
                       value={formData.startTime.minute}
+                      onInput={(e) => {
+                        let inputValue = e.target.value
+                        if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                          inputValue = inputValue.substring(1)
+                          e.target.value = inputValue
+                        }
+                      }}
                       onChange={(e) => handleTimeChange('startTime', 'minute', e.target.value)}
                       className="calendar-time-input"
                     />
@@ -903,6 +923,13 @@ function CalendarPage() {
                       min="0"
                       max="23"
                       value={formData.endTime.hour}
+                      onInput={(e) => {
+                        let inputValue = e.target.value
+                        if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                          inputValue = inputValue.substring(1)
+                          e.target.value = inputValue
+                        }
+                      }}
                       onChange={(e) => handleTimeChange('endTime', 'hour', e.target.value)}
                       className={`calendar-time-input ${isEndTimeInvalid() ? 'calendar-time-input-error' : ''}`}
                     />
@@ -912,6 +939,13 @@ function CalendarPage() {
                       min="0"
                       max="59"
                       value={formData.endTime.minute}
+                      onInput={(e) => {
+                        let inputValue = e.target.value
+                        if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                          inputValue = inputValue.substring(1)
+                          e.target.value = inputValue
+                        }
+                      }}
                       onChange={(e) => handleTimeChange('endTime', 'minute', e.target.value)}
                       className={`calendar-time-input ${isEndTimeInvalid() ? 'calendar-time-input-error' : ''}`}
                     />

@@ -163,11 +163,17 @@ function AddEventPage() {
   }
 
   const handleTimeChange = (type, field, value) => {
+    let inputValue = String(value)
+    // "0"으로 시작하는 두 자리 이상 숫자(예: "01", "05", "07")인 경우 첫 번째 "0" 제거
+    // 단, "00"은 그대로 유지
+    if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+      inputValue = inputValue.substring(1)
+    }
     setFormData(prev => ({
       ...prev,
       [type]: {
         ...prev[type],
-        [field]: parseInt(value) || 0
+        [field]: parseInt(inputValue) || 0
       }
     }))
   }
@@ -471,6 +477,13 @@ function AddEventPage() {
                 min="0"
                 max="23"
                 value={formData.startTime.hour}
+                onInput={(e) => {
+                  let inputValue = e.target.value
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                    e.target.value = inputValue
+                  }
+                }}
                 onChange={(e) => handleTimeChange('startTime', 'hour', e.target.value)}
                 className="time-input"
               />
@@ -480,6 +493,13 @@ function AddEventPage() {
                 min="0"
                 max="59"
                 value={formData.startTime.minute}
+                onInput={(e) => {
+                  let inputValue = e.target.value
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                    e.target.value = inputValue
+                  }
+                }}
                 onChange={(e) => handleTimeChange('startTime', 'minute', e.target.value)}
                 className="time-input"
               />
@@ -491,6 +511,13 @@ function AddEventPage() {
                 min="0"
                 max="23"
                 value={formData.endTime.hour}
+                onInput={(e) => {
+                  let inputValue = e.target.value
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                    e.target.value = inputValue
+                  }
+                }}
                 onChange={(e) => handleTimeChange('endTime', 'hour', e.target.value)}
                 className={`time-input ${(() => {
                   const startTotal = formData.startTime.hour * 60 + formData.startTime.minute
@@ -504,6 +531,13 @@ function AddEventPage() {
                 min="0"
                 max="59"
                 value={formData.endTime.minute}
+                onInput={(e) => {
+                  let inputValue = e.target.value
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                    e.target.value = inputValue
+                  }
+                }}
                 onChange={(e) => handleTimeChange('endTime', 'minute', e.target.value)}
                 className={`time-input ${(() => {
                   const startTotal = formData.startTime.hour * 60 + formData.startTime.minute

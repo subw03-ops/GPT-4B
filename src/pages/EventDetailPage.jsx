@@ -1071,11 +1071,26 @@ function EventDetailPage() {
 
                 value={(formData.startDate || event.startDate).getHours()}
 
+                onInput={(e) => {
+
+                  let inputValue = e.target.value
+                  // "0"으로 시작하는 두 자리 이상 숫자(예: "01", "05", "07")인 경우 첫 번째 "0" 제거
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                    e.target.value = inputValue
+                  }
+                }}
+
                 onChange={(e) => {
 
                   const newDate = new Date(formData.startDate || event.startDate)
 
-                  const hours = Math.max(0, Math.min(23, parseInt(e.target.value) || 0))
+                  let inputValue = e.target.value
+                  // "0"으로 시작하는 두 자리 이상 숫자(예: "01", "05", "07")인 경우 첫 번째 "0" 제거
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                  }
+                  const hours = Math.max(0, Math.min(23, parseInt(inputValue) || 0))
 
                   newDate.setHours(hours)
 
@@ -1099,11 +1114,26 @@ function EventDetailPage() {
 
                 value={(formData.startDate || event.startDate).getMinutes()}
 
+                onInput={(e) => {
+
+                  let inputValue = e.target.value
+                  // "0"으로 시작하는 두 자리 이상 숫자(예: "01", "05", "07")인 경우 첫 번째 "0" 제거
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                    e.target.value = inputValue
+                  }
+                }}
+
                 onChange={(e) => {
 
                   const newDate = new Date(formData.startDate || event.startDate)
 
-                  const minutes = Math.max(0, Math.min(59, parseInt(e.target.value) || 0))
+                  let inputValue = e.target.value
+                  // "0"으로 시작하는 두 자리 이상 숫자(예: "01", "05", "07")인 경우 첫 번째 "0" 제거
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                  }
+                  const minutes = Math.max(0, Math.min(59, parseInt(inputValue) || 0))
 
                   newDate.setMinutes(minutes)
 
@@ -1131,11 +1161,26 @@ function EventDetailPage() {
 
                 value={(formData.endDate || event.endDate).getHours()}
 
+                onInput={(e) => {
+
+                  let inputValue = e.target.value
+                  // "0"으로 시작하는 두 자리 이상 숫자(예: "01", "05", "07")인 경우 첫 번째 "0" 제거
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                    e.target.value = inputValue
+                  }
+                }}
+
                 onChange={(e) => {
 
                   const newDate = new Date(formData.endDate || event.endDate)
 
-                  const hours = Math.max(0, Math.min(23, parseInt(e.target.value) || 0))
+                  let inputValue = e.target.value
+                  // "0"으로 시작하는 두 자리 이상 숫자(예: "01", "05", "07")인 경우 첫 번째 "0" 제거
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                  }
+                  const hours = Math.max(0, Math.min(23, parseInt(inputValue) || 0))
 
                   newDate.setHours(hours)
 
@@ -1159,11 +1204,26 @@ function EventDetailPage() {
 
                 value={(formData.endDate || event.endDate).getMinutes()}
 
+                onInput={(e) => {
+
+                  let inputValue = e.target.value
+                  // "0"으로 시작하는 두 자리 이상 숫자(예: "01", "05", "07")인 경우 첫 번째 "0" 제거
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                    e.target.value = inputValue
+                  }
+                }}
+
                 onChange={(e) => {
 
                   const newDate = new Date(formData.endDate || event.endDate)
 
-                  const minutes = Math.max(0, Math.min(59, parseInt(e.target.value) || 0))
+                  let inputValue = e.target.value
+                  // "0"으로 시작하는 두 자리 이상 숫자(예: "01", "05", "07")인 경우 첫 번째 "0" 제거
+                  if (inputValue.length >= 2 && inputValue.startsWith('0') && inputValue[1] !== '0') {
+                    inputValue = inputValue.substring(1)
+                  }
+                  const minutes = Math.max(0, Math.min(59, parseInt(inputValue) || 0))
 
                   newDate.setMinutes(minutes)
 
