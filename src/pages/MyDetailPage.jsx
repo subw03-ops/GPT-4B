@@ -315,10 +315,12 @@ function MyDetailPage() {
           <p className="my-detail-subtitle">나의 세부 정보를 확인할 수 있어요.</p>
         </div>
 
-        {/* 명함 커스텀 버튼 */}
-        <button className="customize-button" onClick={handleCustomize}>
-          명함 커스텀하기
-        </button>
+        {/* 명함 위 버튼 영역 */}
+        <div className="card-actions-section">
+          <button className="customize-button" onClick={handleCustomize}>
+            명함 커스텀하기
+          </button>
+        </div>
 
         {/* 프로필 카드 */}
         <div 
@@ -417,8 +419,8 @@ function MyDetailPage() {
         </div>
 
         {/* 로그아웃 버튼 */}
-        <div className="logout-section">
-          <button className="logout-button" onClick={handleLogout}>
+        <div className="logout-section-bottom">
+          <button className="logout-button-bottom" onClick={handleLogout}>
             로그아웃
           </button>
         </div>

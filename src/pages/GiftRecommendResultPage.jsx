@@ -278,10 +278,10 @@ function GiftRecommendResultPage() {
     return '🎁'
     }
 
-  // 관심사 추출 (메모만 사용, 없으면 "-")
+  // 관심사 추출 (메모나 추가 정보에서)
   const interests = memos.length > 0 
     ? memos.join(', ')
-    : '-'
+    : additionalInfo || '없음'
 
   return (
     <div className="gift-recommend-result-page">

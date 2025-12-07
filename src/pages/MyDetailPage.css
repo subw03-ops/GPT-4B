@@ -7,7 +7,7 @@
   overflow-y: auto;
   position: relative;
   margin: 0 auto;
-  padding-bottom: 100px;
+  padding-bottom: 80px;
 }
 
 .my-detail-background {
@@ -97,7 +97,7 @@
   background: linear-gradient(147.99deg, rgba(109, 48, 223, 1) 0%, rgba(255, 255, 255, 1) 100%);
   border-radius: 24px;
   padding: 20px;
-  margin-top: 16px;
+  margin-top: 4px;
   box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
@@ -232,6 +232,16 @@
   white-space: nowrap;
 }
 
+/* 명함 위 버튼 영역 */
+.card-actions-section {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 6px;
+  margin-bottom: 0;
+  width: 100%;
+}
+
 .customize-button {
   background: #584cdc;
   border: none;
@@ -245,13 +255,42 @@
   letter-spacing: -0.1504px;
   cursor: pointer;
   width: 110px;
-  height: auto;
-  min-height: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 6px 0 0 auto;
   z-index: 5;
+  flex-shrink: 0;
+}
+
+.logout-button-top {
+  width: auto;
+  min-width: auto;
+  height: auto;
+  padding: 0;
+  margin-left: 8px;
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: #666;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-button-top:hover {
+  color: #333;
+}
+
+.logout-button-top:active {
+  color: #000;
 }
 
 /* 환영 메시지 팝업 */
@@ -451,7 +490,7 @@
 
 .info-label {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   line-height: 20px;
   color: #0a0a0a;
@@ -461,12 +500,50 @@
 
 .info-value {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 24px;
   color: #0a0a0a;
   margin: 0;
   letter-spacing: -0.3125px;
+}
+
+/* 로그아웃 버튼 섹션 (명함 정보 아래) */
+.logout-section-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.logout-button-bottom {
+  width: auto;
+  min-width: auto;
+  height: auto;
+  padding: 0;
+  margin-left: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: #666;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-button-bottom:hover {
+  color: #333;
+}
+
+.logout-button-bottom:active {
+  color: #000;
 }
 
 .action-button {

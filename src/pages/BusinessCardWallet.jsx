@@ -289,24 +289,25 @@ function BusinessCardWallet() {
     ? filteredCards.find(card => card.id === selectedCardId) || currentCard
     : currentCard
 
-  // location.state에서 openCardId, selectCardId, refreshCards를 확인하고 처리
+  // location.state에서 openCardId, selectCardId, refresh, refreshCards를 확인하고 처리
   useEffect(() => {
     const openCardId = location.state?.openCardId
     const selectCardId = location.state?.selectCardId
     const refreshCards = location.state?.refreshCards
+    const refresh = location.state?.refresh
     
-    // refreshCards가 있으면 카드 목록 새로고침
-    if (refreshCards) {
+    // refresh 또는 refreshCards가 있으면 카드 목록 새로고침
+    if (refresh || refreshCards) {
       if (isAuthenticated()) {
         fetchCards();
       }
     }
     
     if (filteredCards.length > 0) {
-      // openCardId가 있으면 모달 열기 (refreshCards 후에도 처리)
+      // openCardId가 있으면 모달 열기 (refresh 후에도 처리)
       if (openCardId) {
-        // refreshCards가 있으면 카드 새로고침 후 약간의 지연을 두고 처리
-        const delay = refreshCards ? 300 : 0;
+        // refresh가 있으면 카드 새로고침 후 약간의 지연을 두고 처리
+        const delay = (refresh || refreshCards) ? 300 : 0;
         setTimeout(() => {
           const cardIndex = filteredCards.findIndex(card => card.id === openCardId)
           if (cardIndex !== -1) {
@@ -325,16 +326,20 @@ function BusinessCardWallet() {
       }
       // selectCardId가 있으면 해당 명함으로 인덱스만 변경
       else if (selectCardId) {
-        const cardIndex = filteredCards.findIndex(card => card.id === selectCardId)
-        if (cardIndex !== -1) {
-          setCurrentIndex(cardIndex)
-          setSelectedCardId(selectCardId)
+        // refresh가 있으면 카드 새로고침 후 약간의 지연을 두고 처리
+        const delay = (refresh || refreshCards) ? 300 : 0;
+        setTimeout(() => {
+          const cardIndex = filteredCards.findIndex(card => card.id === selectCardId)
+          if (cardIndex !== -1) {
+            setCurrentIndex(cardIndex)
+            setSelectedCardId(selectCardId)
+          }
           // state 초기화
           navigate(location.pathname, { replace: true, state: {} })
-        }
+        }, delay)
       }
-      // refreshCards만 있고 openCardId가 없으면 state만 초기화
-      else if (refreshCards) {
+      // refresh만 있고 openCardId나 selectCardId가 없으면 state만 초기화
+      else if (refresh || refreshCards) {
         navigate(location.pathname, { replace: true, state: {} })
       }
     }
@@ -837,13 +842,16 @@ function CardDetailModal({ card, onClose }) {
               <path d="M15 18L9 12L15 6" stroke="#1f2937" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
-          <div className="modal-top-right">
-            <div className="modal-top-actions">
-              <button className="modal-customize-button" onClick={handleCustomize}>
-                명함 커스텀하기
-              </button>
-            </div>
-          </div>
+        </div>
+
+        {/* 삭제 버튼 및 커스텀 버튼 - 명함 위 */}
+        <div className="modal-delete-section-top">
+          <button className="modal-delete-button-top" onClick={handleDelete}>
+            명함 삭제하기
+          </button>
+          <button className="modal-customize-button" onClick={handleCustomize}>
+            명함 커스텀하기
+          </button>
         </div>
 
         {/* Main Card Info */}
@@ -976,13 +984,6 @@ function CardDetailModal({ card, onClose }) {
                 <span className="info-value">{displayValue(card.memo)}</span>
               </div>
             </div>
-          </div>
-          
-          {/* Delete Button */}
-          <div className="modal-delete-section">
-            <button className="modal-delete-text-button" onClick={handleDelete}>
-              명함 삭제하기
-            </button>
           </div>
         </div>
       </div>
