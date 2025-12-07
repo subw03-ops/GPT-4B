@@ -82,8 +82,8 @@ const AddInfo = () => {
         navigate("/business-cards", { state: { refresh: true, openCardId: updatedCard.id } });
       } else {
         // 새 명함 추가인 경우 (DB에 저장)
-        await addCard(updatedCard);
-        navigate("/business-cards");
+        const savedCard = await addCard(updatedCard);
+        navigate("/business-cards", { state: { openCardId: savedCard.id } });
       }
       setPendingCard(null);
     } catch (error) {

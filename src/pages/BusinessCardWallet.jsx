@@ -433,6 +433,21 @@ function BusinessCardWallet() {
       if (isAuthenticated()) {
         await fetchCards(searchQuery)
       }
+      
+      // 그리드 뷰가 아닌 경우에만 해당 명함으로 이동
+      if (!isGridView) {
+        // 새로고침 후 해당 명함이 보이도록 인덱스 설정
+        // filteredCards가 업데이트될 시간을 주기 위해 약간의 지연
+        setTimeout(() => {
+          const updatedCards = useCardStore.getState().cards
+          // 정렬된 카드 목록에서 인덱스 찾기
+          const sortedCards = sortCards(updatedCards)
+          const cardIndex = sortedCards.findIndex(c => c.id === cardId || String(c.id) === String(cardId))
+          if (cardIndex !== -1) {
+            setCurrentIndex(cardIndex)
+          }
+        }, 200) // 카드 목록 업데이트 후 인덱스 설정
+      }
     } catch (error) {
       console.error('Failed to toggle favorite:', error)
     }

@@ -437,13 +437,13 @@ function LandingPage() {
                     >
                       {alert.text}
                     </p>
-                    <button
-                      className="alert-button"
-                      onClick={() => handleViewAlert(alert)}
-                    >
-                      보기
-                    </button>
-                  </div>
+                  <button 
+                    className="alert-button"
+                    onClick={() => handleViewAlert(alert)}
+                  >
+                    보기
+                  </button>
+                </div>
                 )
               })
             ) : (

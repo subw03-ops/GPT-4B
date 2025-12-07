@@ -10,8 +10,8 @@ const ManualAddCardPage = () => {
   const handleSubmit = async (card: BusinessCard) => {
     try {
       // 새 명함 추가 (DB에 저장)
-      await addCard(card);
-      navigate("/business-cards");
+      const savedCard = await addCard(card);
+      navigate("/business-cards", { state: { openCardId: savedCard.id } });
     } catch (error) {
       console.error('Failed to save card:', error);
       alert('명함 저장에 실패했습니다. 다시 시도해주세요.');
