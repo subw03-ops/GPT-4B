@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { BusinessCard } from "../../store/cardStore";
+import { generateUUID } from "../../utils/uuid";
 import "./CardForm.css";
 
 const fields: Array<{
@@ -61,7 +62,7 @@ const CardForm = ({
       return;
     }
     onSubmit({
-      id: formValues.id ?? crypto.randomUUID(),
+      id: formValues.id ?? generateUUID(),
       name: formValues.name,
       position: formValues.position,
       company: formValues.company,

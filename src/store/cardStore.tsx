@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { cardAPI } from "../utils/api";
 // @ts-ignore - JavaScript module without type definitions
 import { isAuthenticated } from "../utils/auth";
+import { generateUUID } from "../utils/uuid";
 
 export type BusinessCard = {
   id: string | number;
@@ -42,7 +43,7 @@ const demoCards: BusinessCard[] = [
     email: "park@test.com",
   },
   {
-    id: crypto.randomUUID(),
+    id: generateUUID(),
     name: "최하늘",
     position: "Product Designer",
     company: "Orbit Studio",
@@ -50,7 +51,7 @@ const demoCards: BusinessCard[] = [
     email: "ha-neul@orbit.studio",
   },
   {
-    id: crypto.randomUUID(),
+    id: generateUUID(),
     name: "강지민",
     position: "Partnership Lead",
     company: "Blueberry Labs",
@@ -154,7 +155,7 @@ export const useCardStore = create<CardState>((set, get) => ({
       }
     } else {
       // 로컬 스토리지 사용 (비인증 상태)
-      const newCard = { ...card, id: card.id || crypto.randomUUID() };
+      const newCard = { ...card, id: card.id || generateUUID() };
       set((state) => ({
         cards: [newCard, ...state.cards],
       }));

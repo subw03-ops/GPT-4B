@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import OCRCamera from "../components/OCRCamera/OCRCamera";
 import { runOCR } from "../utils/ocr";
 import { useCardStore } from "../store/cardStore";
+import { generateUUID } from "../utils/uuid";
 import "./OCR.css";
 
 const imgClose =
@@ -99,7 +100,7 @@ const OCR = () => {
 
       // 더미데이터인 경우 모든 필드를 빈 값으로 처리 (이름 포함)
       const pending = {
-        id: crypto.randomUUID(),
+        id: generateUUID(),
         name: isDummy ? undefined : (ocrResult.name ?? undefined),
         position: isDummy ? undefined : (ocrResult.position ?? undefined),
         company: isDummy ? undefined : (ocrResult.company ?? undefined),
@@ -189,7 +190,7 @@ const OCR = () => {
 
           // 더미데이터인 경우 모든 필드를 빈 값으로 처리 (이름 포함)
           const pending = {
-            id: crypto.randomUUID(),
+            id: generateUUID(),
             name: isDummy ? undefined : (ocrResult.name ?? undefined),
             position: isDummy ? undefined : (ocrResult.position ?? undefined),
             company: isDummy ? undefined : (ocrResult.company ?? undefined),

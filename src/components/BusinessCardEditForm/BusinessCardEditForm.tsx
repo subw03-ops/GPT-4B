@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { BusinessCard } from "../../store/cardStore";
+import { generateUUID } from "../../utils/uuid";
 import "./BusinessCardEditForm.css";
 
 // BusinessCardEditForm 전용 필드 정의 (CardForm과 완전히 독립적)
@@ -49,7 +50,7 @@ const BusinessCardEditForm = ({
       return;
     }
     onSubmit({
-      id: formValues.id ?? crypto.randomUUID(),
+      id: formValues.id ?? generateUUID(),
       name: formValues.name,
       position: formValues.position,
       company: formValues.company,
