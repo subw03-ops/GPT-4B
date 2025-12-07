@@ -245,19 +245,18 @@
 }
 
 .rationale-card {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(124, 58, 237, 0.08) 100%);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(124, 58, 237, 0.06) 100%);
   border-radius: 8px;
-  padding: 10px;
+  padding: 12px;
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  border: 1px solid rgba(139, 92, 246, 0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  transition: background 0.2s ease;
 }
 
 .rationale-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(124, 58, 237, 0.08) 100%);
 }
 
 .rationale-card-icon {
@@ -290,11 +289,11 @@
 
 .rationale-card-description {
   font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 400;
-  color: #4b5563;
+  color: #374151;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* Gift Recommendations */
@@ -337,10 +336,14 @@
   flex-direction: column;
   background-color: white;
   border-radius: 12px;
-  padding: 12px;
+  padding: 16px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .gift-item-wrapper.selected {
@@ -355,8 +358,8 @@
 }
 
 .gift-rationale-box {
-  margin-top: 8px;
-  padding-top: 8px;
+  margin-top: 0;
+  padding-top: 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
@@ -369,30 +372,48 @@
   box-shadow: none;
   border: none;
   transition: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 
 .gift-card-image {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  min-height: 80px;
+  max-width: 80px;
+  max-height: 80px;
+  aspect-ratio: 1 / 1;
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
   background-color: #f3f4f6;
+  box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
 }
 
 .gift-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
 }
 
 .gift-card-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .gift-card-header {
@@ -400,6 +421,8 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .gift-card-title {
@@ -433,7 +456,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: auto;
+  margin-top: -4px;
   width: 100%;
   gap: 12px;
 }
@@ -470,12 +493,13 @@
   font-weight: 400;
   color: #6b7280;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.2;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-top: 2px;
+  margin-top: 0px;
+  margin-bottom: -8px;
 }
 
 /* Gift Card Image Placeholder */
@@ -487,6 +511,7 @@
   justify-content: center;
   font-size: 32px;
   background-color: #f3f4f6;
+  border-radius: 8px;
 }
 
 /* Gift Card Source Badge */

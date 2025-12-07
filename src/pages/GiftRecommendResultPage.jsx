@@ -33,6 +33,7 @@ function GiftRecommendResultPage() {
   
   const [selectedGiftIndex, setSelectedGiftIndex] = useState(null)
   const [savedGiftId, setSavedGiftId] = useState(null) // 저장된 선물 ID
+  const [savedChatId, setSavedChatId] = useState(null) // 저장된 채팅 내역 ID
   const [isSavingGift, setIsSavingGift] = useState(false)
   const [isSavingChat, setIsSavingChat] = useState(false)
   const completionSectionRef = useRef(null)
@@ -84,6 +85,17 @@ function GiftRecommendResultPage() {
         }
       }
       
+      // 기존 채팅 내역이 있으면 삭제 (선택 취소 시)
+      if (savedChatId) {
+        try {
+          await chatAPI.delete(savedChatId)
+        } catch (error) {
+          console.error('Error deleting chat history:', error)
+          // 삭제 실패해도 계속 진행
+        }
+        setSavedChatId(null)
+      }
+      
       // 선택 취소
       setSelectedGiftIndex(null)
       setSavedGiftId(null)
@@ -129,6 +141,16 @@ function GiftRecommendResultPage() {
       // 저장된 선물 ID 저장
       if (response.data && response.data.success && response.data.data) {
         setSavedGiftId(response.data.data.id)
+      }
+
+      // 기존 채팅 내역이 있으면 삭제 (마지막 선택만 남기기 위해)
+      if (savedChatId) {
+        try {
+          await chatAPI.delete(savedChatId)
+        } catch (error) {
+          console.error('Error deleting previous chat history:', error)
+          // 삭제 실패해도 계속 진행
+        }
       }
 
       // 전체 대화 내역 저장 (새로 선택한 경우에만)
@@ -187,11 +209,16 @@ function GiftRecommendResultPage() {
 
 
       // Chat 생성
-      await chatAPI.createHistory(
+      const chatResponse = await chatAPI.createHistory(
         chatMessages,
         `${userName}님을 위한 선물 추천`,
         'gpt'
       )
+      
+      // 생성된 채팅 내역 ID 저장
+      if (chatResponse.data && chatResponse.data.success && chatResponse.data.data) {
+        setSavedChatId(chatResponse.data.data.id)
+      }
     } catch (error) {
       console.error('Error saving chat history:', error)
       // 채팅 저장 실패는 사용자에게 알리지 않음 (선물 저장은 성공했으므로)
