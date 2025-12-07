@@ -43,6 +43,7 @@ function App() {
       <Routes>
         <Route path="/" element={<WelcomeScreen />} />
         <Route path="/login" element={<LoginScreen />} />
+        <Route path="/forgot-password" element={<NotFoundPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signup/info" element={<SignupInfoPage />} />
         <Route path="/signup/form" element={<SignupFormPage />} />

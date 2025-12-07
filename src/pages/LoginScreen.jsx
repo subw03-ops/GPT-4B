@@ -4,12 +4,12 @@ import { authAPI } from '../utils/api'
 import { setToken, setUser } from '../utils/auth'
 import './LoginScreen.css'
 
-// 이메일 아이콘 SVG 컴포넌트
-function EmailIcon() {
+// 사용자 아이콘 SVG 컴포넌트
+function UserIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="rgba(0, 0, 0, 0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M22 6L12 13L2 6" stroke="rgba(0, 0, 0, 0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="rgba(0, 0, 0, 0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="12" cy="7" r="4" stroke="rgba(0, 0, 0, 0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 }
@@ -86,7 +86,7 @@ function LoginScreen() {
                 className="login-input"
               />
               <div className="input-icon-right">
-                <EmailIcon />
+                <UserIcon />
               </div>
             </div>
           </div>
@@ -117,7 +117,7 @@ function LoginScreen() {
         </form>
 
         <div className="login-links">
-          <Link to="/404" className="forgot-link">
+          <Link to="/forgot-password" className="forgot-link">
             아이디 / 비밀번호 찾기
           </Link>
           <Link to="/signup" className="signup-link">
