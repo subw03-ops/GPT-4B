@@ -204,7 +204,6 @@ function ChatDetailPage() {
               <div className="user-info-name">{userInfo.name || '사용자'}</div>
               {userInfo.company && <div className="user-info-item">소속: {userInfo.company}</div>}
               {userInfo.position && <div className="user-info-item">직급: {userInfo.position}</div>}
-              <div className="user-info-item">연령대: 30대 중반</div>
               {userInfo.memo && <div className="user-info-item">메모: {userInfo.memo}</div>}
               {userInfo.additionalInfo && <div className="user-info-item">추가 정보: {userInfo.additionalInfo}</div>}
             </div>
