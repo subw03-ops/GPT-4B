@@ -44,22 +44,22 @@ const TUTORIAL_STEPS = [
 function TutorialPage() {
   const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(0)
-  const [showIntermediateImage, setShowIntermediateImage] = useState(false)
   const [showTutorial60, setShowTutorial60] = useState(false)
 
   const handleNext = () => {
-    // step 4 (currentStep === 3)에서 다음을 누르면 중간 이미지 표시
-    if (currentStep === 3) {
-      setShowIntermediateImage(true)
-      // 1초 후 자동으로 step 5로 이동
-      setTimeout(() => {
-        setShowIntermediateImage(false)
-        setCurrentStep(4)
-      }, 1000)
-    } else if (currentStep === 4) {
+    if (currentStep === 4) {
       // step 5에서 다음을 누르면 step 6으로 이동하고 tutorial-6-0 표시
       setCurrentStep(5)
       setShowTutorial60(true)
+    } else if (currentStep === 5) {
+      // step 6에서 처리
+      if (showTutorial60) {
+        // tutorial-6-0 표시 중이면 tutorial-6으로 이동
+        setShowTutorial60(false)
+      } else {
+        // tutorial-6 표시 중이면 완료
+        handleComplete()
+      }
     } else if (currentStep < TUTORIAL_STEPS.length - 1) {
       setCurrentStep(currentStep + 1)
     } else {
@@ -69,10 +69,13 @@ function TutorialPage() {
   }
 
   const handlePrev = () => {
-    if (showTutorial60) {
+    if (currentStep === 5 && showTutorial60) {
       // tutorial-6-0 표시 중이면 step 5로 돌아감
       setShowTutorial60(false)
       setCurrentStep(4)
+    } else if (currentStep === 5 && !showTutorial60) {
+      // tutorial-6 표시 중이면 tutorial-6-0으로 돌아감
+      setShowTutorial60(true)
     } else if (currentStep > 0) {
       setCurrentStep(currentStep - 1)
     }
@@ -88,17 +91,11 @@ function TutorialPage() {
   const currentTutorial = TUTORIAL_STEPS[currentStep]
   const isLastStep = currentStep === TUTORIAL_STEPS.length - 1
   
-  // 중간 이미지 표시 중일 때 사용할 이미지
-  const intermediateImage = showIntermediateImage ? '/assets/tutorial/tutorial-4-1.png' : null
-  
-  // step 6에서 tutorial-6-0이 표시 중일 때 화면 클릭 시 tutorial-6으로 이동
-  const handleScreenClick = () => {
-    if (currentStep === 5 && showTutorial60) {
-      // tutorial-6-0 표시 중이면 tutorial-6으로 이동
+  // tutorial-6-0에서 화면 클릭 시 다음 단계로 이동
+  const handleScreenClick = (e) => {
+    // tutorial-6-0 표시 중이고, 버튼 영역이 아닐 때만 처리
+    if (currentStep === 5 && showTutorial60 && !e.target.closest('.tutorial-navigation')) {
       setShowTutorial60(false)
-    } else if (currentStep === 5 && !showTutorial60) {
-      // tutorial-6 표시 중이면 완료
-      handleComplete()
     }
   }
 
@@ -106,50 +103,15 @@ function TutorialPage() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowRight') {
-        if (showIntermediateImage) {
-          // 중간 이미지 표시 중이면 바로 step 5로 이동
-          setShowIntermediateImage(false)
-          setCurrentStep(4)
-        } else if (currentStep === 3) {
-          // step 4에서 다음을 누르면 중간 이미지 표시
-          setShowIntermediateImage(true)
-          setTimeout(() => {
-            setShowIntermediateImage(false)
-            setCurrentStep(4)
-          }, 1000)
-        } else if (currentStep === 4) {
-          // step 5에서 다음을 누르면 step 6으로 이동하고 tutorial-6-0 표시
-          setCurrentStep(5)
-          setShowTutorial60(true)
-        } else if (currentStep === 5) {
-          // step 6에서 처리
-          if (showTutorial60) {
-            setShowTutorial60(false)
-          } else {
-            handleComplete()
-          }
-        } else if (currentStep < TUTORIAL_STEPS.length - 1) {
-          setCurrentStep(currentStep + 1)
-        } else {
-          handleComplete()
-        }
+        handleNext()
       } else if (e.key === 'ArrowLeft') {
-        if (showIntermediateImage) {
-          // 중간 이미지 표시 중이면 step 4로 돌아감
-          setShowIntermediateImage(false)
-        } else if (showTutorial60) {
-          // tutorial-6-0 표시 중이면 step 5로 돌아감
-          setShowTutorial60(false)
-          setCurrentStep(4)
-        } else if (currentStep > 0) {
-          setCurrentStep(currentStep - 1)
-        }
+        handlePrev()
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [currentStep, navigate, showIntermediateImage, showTutorial60])
+  }, [currentStep, navigate, showTutorial60])
 
   // 터치 스와이프 이벤트 처리
   const [touchStart, setTouchStart] = useState(null)
@@ -169,12 +131,12 @@ function TutorialPage() {
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return
     
-    // step 6에서 tutorial-6-0 표시 중일 때만 화면 터치 시 처리
-    if (currentStep === 5 && !showIntermediateImage && showTutorial60) {
+    // tutorial-6-0에서 단순 터치 시 다음 단계로 이동
+    if (currentStep === 5 && showTutorial60) {
       const touchDistance = Math.abs(touchStart - touchEnd)
       // 스와이프가 아닌 단순 터치인 경우 (거리가 작을 때)
       if (touchDistance < minSwipeDistance) {
-        handleScreenClick()
+        setShowTutorial60(false)
         return
       }
     }
@@ -184,44 +146,9 @@ function TutorialPage() {
     const isRightSwipe = distance < -minSwipeDistance
 
     if (isLeftSwipe) {
-      if (showIntermediateImage) {
-        // 중간 이미지 표시 중이면 바로 step 5로 이동
-        setShowIntermediateImage(false)
-        setCurrentStep(4)
-      } else if (currentStep === 3) {
-        // step 4에서 다음을 누르면 중간 이미지 표시
-        setShowIntermediateImage(true)
-        setTimeout(() => {
-          setShowIntermediateImage(false)
-          setCurrentStep(4)
-        }, 1000)
-      } else if (currentStep === 4) {
-        // step 5에서 다음을 누르면 step 6으로 이동하고 tutorial-6-0 표시
-        setCurrentStep(5)
-        setShowTutorial60(true)
-      } else if (currentStep === 5) {
-        // step 6에서 처리
-        if (showTutorial60) {
-          setShowTutorial60(false)
-        } else {
-          handleComplete()
-        }
-      } else if (currentStep < TUTORIAL_STEPS.length - 1) {
-        setCurrentStep(currentStep + 1)
-      } else {
-        handleComplete()
-      }
+      handleNext()
     } else if (isRightSwipe) {
-      if (showIntermediateImage) {
-        // 중간 이미지 표시 중이면 step 4로 돌아감
-        setShowIntermediateImage(false)
-      } else if (showTutorial60) {
-        // tutorial-6-0 표시 중이면 step 5로 돌아감
-        setShowTutorial60(false)
-        setCurrentStep(4)
-      } else if (currentStep > 0) {
-        setCurrentStep(currentStep - 1)
-      }
+      handlePrev()
     }
   }
 
@@ -231,8 +158,8 @@ function TutorialPage() {
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
-      onClick={currentStep === 5 && !showIntermediateImage ? handleScreenClick : undefined}
-      style={currentStep === 5 && !showIntermediateImage ? { cursor: 'pointer' } : {}}
+      onClick={currentStep === 5 && showTutorial60 ? handleScreenClick : undefined}
+      style={currentStep === 5 && showTutorial60 ? { cursor: 'pointer' } : {}}
     >
       <div className="tutorial-container">
         {/* 상단 제목 및 설명 */}
@@ -277,17 +204,17 @@ function TutorialPage() {
         <div 
           className="tutorial-content"
           onClick={(e) => {
-            // step 6에서 화면 클릭 처리 (버튼 영역 제외)
-            if (currentStep === 5 && !showIntermediateImage && !e.target.closest('.tutorial-navigation')) {
+            // tutorial-6-0에서 화면 클릭 처리 (버튼 영역 제외)
+            if (currentStep === 5 && showTutorial60 && !e.target.closest('.tutorial-navigation')) {
               e.stopPropagation()
-              handleScreenClick()
+              setShowTutorial60(false)
             }
           }}
         >
           <div className="tutorial-image-container">
             <img 
-              src={showTutorial60 ? '/assets/tutorial/tutorial-6-0.png' : (intermediateImage || currentTutorial.image)} 
-              alt={`튜토리얼 ${showTutorial60 ? '6-0' : (showIntermediateImage ? '4-1' : currentStep + 1)}`}
+              src={showTutorial60 ? '/assets/tutorial/tutorial-6-0.png' : currentTutorial.image} 
+              alt={`튜토리얼 ${showTutorial60 ? '6-0' : currentStep + 1}`}
               className="tutorial-image"
               onError={(e) => {
                 // 이미지 로드 실패 시 플레이스홀더 표시
@@ -296,36 +223,34 @@ function TutorialPage() {
               }}
             />
             <div className="tutorial-image-placeholder hidden">
-              <p style={{ color: '#fff' }}>튜토리얼 이미지 {showTutorial60 ? '6-0' : (showIntermediateImage ? '4-1' : currentStep + 1)}</p>
-              <p className="placeholder-path" style={{ color: '#ccc' }}>{showTutorial60 ? '/assets/tutorial/tutorial-6-0.png' : (intermediateImage || currentTutorial.image)}</p>
+              <p style={{ color: '#fff' }}>튜토리얼 이미지 {showTutorial60 ? '6-0' : currentStep + 1}</p>
+              <p className="placeholder-path" style={{ color: '#ccc' }}>{showTutorial60 ? '/assets/tutorial/tutorial-6-0.png' : currentTutorial.image}</p>
             </div>
           </div>
         </div>
 
         {/* 하단 네비게이션 */}
-        {!showIntermediateImage && !showTutorial60 && (
-          <div className="tutorial-navigation" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="nav-button prev-button"
-              onClick={(e) => {
-                e.stopPropagation()
-                handlePrev()
-              }}
-              disabled={currentStep === 0}
-            >
-              이전
-            </button>
-            <button
-              className="nav-button next-button"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleNext()
-              }}
-            >
-              {isLastStep ? '시작하기' : '다음'}
-            </button>
-          </div>
-        )}
+        <div className="tutorial-navigation" onClick={(e) => e.stopPropagation()}>
+          <button
+            className="nav-button prev-button"
+            onClick={(e) => {
+              e.stopPropagation()
+              handlePrev()
+            }}
+            disabled={currentStep === 0 && !showTutorial60}
+          >
+            이전
+          </button>
+          <button
+            className="nav-button next-button"
+            onClick={(e) => {
+              e.stopPropagation()
+              handleNext()
+            }}
+          >
+            {currentStep === 5 && !showTutorial60 ? '시작하기' : '다음'}
+          </button>
+        </div>
       </div>
     </div>
   )
