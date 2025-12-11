@@ -352,6 +352,12 @@ function BusinessCardWallet() {
     }
   }, [location.state, filteredCards, navigate, location.pathname, fetchCards, isAuthenticated])
 
+  // currentIndex가 변경될 때마다 드래그 상태를 초기화하여 블러가 확실히 해제되도록 함
+  useEffect(() => {
+    setIsDragging(false)
+    setDragOffset(0)
+  }, [currentIndex])
+
   const handlePrev = () => {
     if (filteredCards.length > 0) {
       setCurrentIndex((prev) => (prev === 0 ? filteredCards.length - 1 : prev - 1))
@@ -386,9 +392,13 @@ function BusinessCardWallet() {
 
   // 터치 종료
   const onTouchEnd = () => {
+    // 상태를 먼저 초기화하여 블러가 즉시 해제되도록 함
+    setIsDragging(false)
+    setDragOffset(0)
+    
     if (isGridView || !touchStart || !touchEnd) {
-      setIsDragging(false)
-      setDragOffset(0)
+      setTouchStart(null)
+      setTouchEnd(null)
       return
     }
     
@@ -396,15 +406,13 @@ function BusinessCardWallet() {
     const distance = touchStart - touchEnd
     const isLeftSwipe = distance > minSwipeDistance
     const isRightSwipe = distance < -minSwipeDistance
-
+    
     if (isLeftSwipe) {
       handleNext()
     } else if (isRightSwipe) {
       handlePrev()
     }
     
-    setIsDragging(false)
-    setDragOffset(0)
     setTouchStart(null)
     setTouchEnd(null)
   }
@@ -429,9 +437,11 @@ function BusinessCardWallet() {
   }
 
   const onMouseUp = () => {
+    // 상태를 먼저 초기화하여 블러가 즉시 해제되도록 함
+    setIsDragging(false)
+    setDragOffset(0)
+    
     if (isGridView || !touchStart || !touchEnd) {
-      setIsDragging(false)
-      setDragOffset(0)
       setTouchStart(null)
       setTouchEnd(null)
       return
@@ -441,15 +451,13 @@ function BusinessCardWallet() {
     const distance = touchStart - touchEnd
     const isLeftSwipe = distance > minSwipeDistance
     const isRightSwipe = distance < -minSwipeDistance
-
+    
     if (isLeftSwipe) {
       handleNext()
     } else if (isRightSwipe) {
       handlePrev()
     }
     
-    setIsDragging(false)
-    setDragOffset(0)
     setTouchStart(null)
     setTouchEnd(null)
   }
@@ -716,6 +724,11 @@ function BusinessCardWallet() {
                           dragTransform = -(dragOffset / (window.innerWidth * 0.85)) * cardWidthPercent
                         }
                         
+                        // 블러 처리 로직
+                        // - 활성화된 카드(isActive): 무조건 블러 없음
+                        // - 비활성화된 카드: 항상 블러
+                        let blurValue = isActive ? 'blur(0)' : 'blur(3px)'
+                        
                         return (
                           <div 
                             key={card.id} 
@@ -723,7 +736,7 @@ function BusinessCardWallet() {
                             style={{
                               transform: `translateX(calc(${offset * 85}% + ${dragTransform}%)) scale(${isActive ? 1 : 0.7})`,
                               opacity: isActive ? Math.max(0.3, 1 - Math.abs(dragOffset) / 200) : 0.3,
-                              filter: isActive ? (Math.abs(dragOffset) > 50 ? 'blur(2px)' : 'blur(0)') : 'blur(3px)',
+                              filter: blurValue,
                               zIndex: isActive ? 10 : 5 - Math.abs(offset),
                               transition: isDragging && isActive ? 'none' : 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease, filter 0.4s ease'
                             }}
